@@ -38,4 +38,12 @@ class Controller
         $result = $this->dbPutter->mainPutter($data);
         return $result;
     }
+
+
+
+    public function validationOfIncomming()
+    {
+        
+    }
+
 }
