@@ -35,12 +35,12 @@ $controller = new Controller();
 
 //  вывод инфомации
         $res = $controller->getFromDB($askArray);
-
+        
 
 
 
 //  ввод информации
 //        $controller->putInDB($putArray1);
 
-
+        print_r($res);
 
