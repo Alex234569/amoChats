@@ -30,7 +30,7 @@ $contoller = new Controller();
             <p id='boldText'>Теги для запроса:</p>
             <form action='../index.php' id='tegSearch' method = 'POST'></form>
             <textarea id='textareaGetInfo' placeholder='Введите теги для поиска' rows='1' autofocus required form='tegSearch' name='getInfo'></textarea><br />
-            <input type='submit' value='Тыкалка' form='tegSearch'>
+            <input type='submit' value='getInfo' form='tegSearch' name='button'>
 
 
         </div>
@@ -42,10 +42,15 @@ $contoller = new Controller();
             <textarea id='textareaAddInfoTegs' placeholder='Теги' maxlength = '128' required form='addInfo' name='addInfoTegs'></textarea><br />
             <textarea id='textareaAddInfoUrl' placeholder='Ссылка' maxlength = '255' form='addInfo' name='addInfoUrl'></textarea><br />
             <input type="date" form='addInfo' name='addInfoDate'><br />
-            <input type='submit' value='Тыкалка' form='addInfo'>
+            <input type='submit' value='addInfo' form='addInfo' name='button'>
             
         </div> 
         <?php
+
+        //    print_r($_POST);
+            $contoller->mainController($_POST);
+
+        /*
         if ((isset($_POST['addInfoQuestion']) && isset($_POST['addInfoAnswer'])) || (isset($_POST['getInfo']))) { ?>
             <div class="centerAnswer">
             <?php
@@ -75,7 +80,7 @@ $contoller = new Controller();
                 }
             } ?>
             </div> <?php 
-        } ?>
+        } */ ?>
 
     </div>
 

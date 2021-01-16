@@ -3,18 +3,25 @@
 include_once 'db/db.php';
 include_once 'db/dbPutter.php';
 include_once 'db/dbGetter.php';
+include_once 'validate.php';
 
 class Controller
 {
     private DBPutter $dbPutter;
     private DBGetter $dbGetter;
+    private Validate $validate;
 
     public function __construct()
     {
-    //    $this->dbPutter = new DBPutter();
-    //    $this->dbGetter = new DBGetter();
+        $this->validate = new Validate;
     }
  
+
+    public function mainController(array $data): void 
+    {
+        $this->validate->validator($data);
+    }
+
 
 /**
  * функция вызова класса, отвечающего за получение информации из БД
@@ -43,7 +50,7 @@ class Controller
 
     public function validationOfIncomming()
     {
-        
+
     }
 
 }
