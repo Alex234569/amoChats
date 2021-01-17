@@ -27,7 +27,7 @@ class Controller
         
         
         echo "<pre>";
-        print_r($res);
+        print_r($validate);
     }
 
 

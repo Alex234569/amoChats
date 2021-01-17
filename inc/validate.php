@@ -30,7 +30,7 @@ class Validate
             default:
                 $this->stop = true;
                 $this->error = 'No such case to validate (/inc/validate.php)';
-                break;
+                return $this->getError();
         }
     }
 
@@ -91,6 +91,7 @@ class Validate
     private function getError(): array
     {
         $data = [];
+        $data['stop'] = $this->stop;
         $data['error'] = $this->error;
         return $data;
     }
