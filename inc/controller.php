@@ -19,7 +19,15 @@ class Controller
 
     public function mainController(array $data): void 
     {
-        $this->validate->validator($data);
+        $validate = $this->validate->validator($data);
+        
+        
+        
+        
+        
+        
+        echo "<pre>";
+        print_r($res);
     }
 
 

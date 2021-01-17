@@ -44,3 +44,15 @@ $controller = new Controller();
 
         print_r($res);
 
+/*
+$test = 'https://test.com';
+     $a = filter_var($test, FILTER_VALIDATE_URL);
+
+        if(filter_var($test, FILTER_VALIDATE_URL) !=false){
+            var_dump($a);
+        } else {
+            echo 'no';
+        }
+
+        
+*/
