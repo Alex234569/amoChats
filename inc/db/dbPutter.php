@@ -1,35 +1,35 @@
 <?php
 
-include_once 'putterStorage.php';
+include_once 'putterEntity.php';
 
 class DBPutter extends Controller
 {
     use DB;
-    private PutterStorage $putterStorage;
+    private PutterEntity $putterEntity;
 
     public function __construct()
     {
-        $this->putterStorage = new PutterStorage();
+        $this->putterEntity = new PutterEntity();
     }
 
 /**
  * Основная функция, отвечающая за порядок запросов
  * @param data входящий массив с данными для добавление в БД
  */
-    public function mainPutter(array $data): array
+    public function mainPutter(array $data)
     {
         $this->DBconstruct();
 
-        $this->putterStorage->PSseparator($data);                       //  все данные записаны в виде объектов в классе-хранителе
+        $this->putterEntity->PEseparator($data);                       //  все данные записаны в виде объектов в классе-хранителе
         $this->tegSearcher();                                           //  теперь есть все необходимые теги с id
-
-        $question = $this->putterStorage->PSgetQuestion();              
-        $answer = $this->putterStorage->PSgetAnswer();
+    
+        $question = $this->putterEntity->PEgetQuestion();              
+        $answer = $this->putterEntity->PEgetAnswer();
         $this->mainSearcher($question, $answer);                        //  создание main и связи с тегами
 
         $this->DBdestruct();
 
-        return $this->putterStorage->PSgetAll();
+        return $this->putterEntity->PEgetAll();
     }
 
 
@@ -38,26 +38,24 @@ class DBPutter extends Controller
  */
     private function tegSearcher(): void
     {
-        $tegsToSearch = $this->putterStorage->PSgetTegsToSearch();      //  теги, которые пришли из поиска
+        $tegsToSearchArr = $this->putterEntity->PEgetTegsToSearch();       //  теги, которые пришли из поиска
 
-        $querryDirty = '';                                              //  подготовка запроса на вытаскивание нужных тегов с id
-        $querryDirty = "SELECT * FROM tegs WHERE ";
-        foreach ($tegsToSearch as $teg) {
-            $querryDirty .= "teg = '$teg' OR ";
-        }
-        $querry = mb_substr($querryDirty, -0, -4);
+        $querry = "SELECT * FROM tegs WHERE teg = '";                   //  подготовка запроса на вытаскивание нужных тегов с id
+        $querry .= implode("' OR teg = '", $tegsToSearchArr);
+        $querry .= "'";
+
         $tegsThatDBAlreadyHas = $this->clientGet($querry);              //  если теги из запроса есть в БД то они будут выведены вместе с id_teg
 
         $tegsDBFiltered = [];                                           //  массив будет содержать только названия тегов из БД (без id, необходимо для сравнения ниже)
         foreach ($tegsThatDBAlreadyHas as $teg) {
             $tegsDBFiltered[] = $teg['teg'];
         }
-        $missedTegs = array_diff($tegsToSearch, $tegsDBFiltered);       //  сравнение: теги, которые пришли из запроса, с тегами, которые уже есть в бд
+        $missedTegs = array_diff($tegsToSearchArr, $tegsDBFiltered);       //  сравнение: теги, которые пришли из запроса, с тегами, которые уже есть в бд
 
         if (!empty($missedTegs)) {                                      //  если не все теги есть в БД, то вызывается функция для их добавления
             $this->tegAdjuster($missedTegs);
         } else {
-            $this->putterStorage->PSsetTegsWithId($tegsThatDBAlreadyHas);   //  сохраняем теги с id в классе-хранителе
+            $this->putterEntity->PEsetTegsWithId($tegsThatDBAlreadyHas);   //  сохраняем теги с id в классе-хранителе
         }
     }
 
@@ -94,10 +92,10 @@ class DBPutter extends Controller
         if (empty($response)) {                                                                     //  если пары нет, то $response пустой
             $this->mainAdjuster($question, $answer);                                                //      и тогда вызываем f() для добавления пары
         } elseif ($stopper !== NULL) {                                                              //  в случае если данная f() вызывается из mainAdjuster(), то выполняется это условие
-            $this->putterStorage->PSsetId($response);                                               //      запись main_id в хранилище
+            $this->putterEntity->PEsetId($response);                                               //      запись main_id в хранилище
             $this->compoundAdjuster();                                                              //      и вызываем f() связыватель teg & main
         } elseif ($stopper == NULL) {
-            $this->putterStorage->PSsetId($response);                                               //  если пришла пара вопрос/ответ из главной f(), тогда только записываем main_id
+            $this->putterEntity->PEsetId($response);                                               //  если пришла пара вопрос/ответ из главной f(), тогда только записываем main_id
         }
     }
 
@@ -108,8 +106,8 @@ class DBPutter extends Controller
  */
     private function mainAdjuster($question, $answer): void 
     {
-        $url = $this->putterStorage->PSgetUrl();                                                    //  вытягивание из хранилища доп необязательной инфы
-        $date = $this->putterStorage->PSgetDate();
+        $url = $this->putterEntity->PEgetUrl();                                                    //  вытягивание из хранилища доп необязательной инфы
+        $date = $this->putterEntity->PEgetDate();
 
         $querry = "INSERT INTO `main` (`id_main`, `question`, `answer`, `url`, `date`) VALUES (NULL, '$question', '$answer'";
         !empty($url) ? ($querry .= ", '$url'") : ($querry .= ", NULL");                             //  что бы не менять тело запроса проще вставить NULL
@@ -126,8 +124,8 @@ class DBPutter extends Controller
  */
     private function compoundAdjuster(): void
     {
-        $mainId = $this->putterStorage->PSgetId();                                      //  вытягивание из хранилища mainId и tegId
-        $tegId = $this->putterStorage->PSgetTegsFromDB();
+        $mainId = $this->putterEntity->PEgetId();                                      //  вытягивание из хранилища mainId и tegId
+        $tegId = $this->putterEntity->PEgetTegsFromDB();
 
         $querryDirty = 'INSERT INTO `compound` (`id_main`, `id_teg`) VALUES ';          //  подготовка запроса
         foreach($tegId as $teg) {

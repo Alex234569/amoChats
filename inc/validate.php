@@ -30,6 +30,7 @@ class Validate
             default:
                 $this->stop = true;
                 $this->error = 'No such case to validate (/inc/validate.php)';
+ 
                 return $this->getError();
         }
     }
@@ -77,6 +78,7 @@ class Validate
                 if (filter_var($cleanUrl, FILTER_VALIDATE_URL) !=false){
                     $this->addUrl = $cleanUrl;
                 } else {
+                    $this->stop = true;
                     $this->error = 'Wrong URL (/inc/validate.php)';
                 }
             }
@@ -121,5 +123,3 @@ class Validate
     }
 
 }
-
-

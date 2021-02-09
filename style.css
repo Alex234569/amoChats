@@ -75,6 +75,16 @@
 }
 
 
+.divToSite{
+    background: whitesmoke;
+    margin-top: 20px;
+}
+.result{
+    background: lightblue;
+    margin-top: 10px;
+}
+
+
 #textareaGetInfo{
     width: calc(100% - 6px);
     height: 18px;
