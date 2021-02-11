@@ -15,10 +15,13 @@ class Validate
     private ?string $addUrl = NULL;    
     private ?string $addDate = NULL;    
     private ?string $addTegsString = NULL;    
-    private ?array $addTegsArray = NULL;    
+    private ?array $addTegsArray = NULL;
 
-
-    public function validator($data): array
+    /**
+     * @param $data на входе массив информации
+     * @return array на выходе обычный массив данных с ключем для определения действий
+     */
+    public function validator(array $data): array
     {
         switch($data['button']) {
             case 'getInfo':
@@ -60,7 +63,6 @@ class Validate
         $cleanQuestion = trim($data['addInfoQuestion']);
         $cleanAnswer = trim($data['addInfoAnswer']);
         $cleanTegs = trim($data['addInfoTegs']);
-        $cleanUrl = isset($data['addInfoUrl']) ? trim($data['addInfoUrl']) : NULL;
 
         if (!empty($cleanQuestion) && !empty($cleanAnswer) && !empty($cleanTegs)){
             $tegsArr = explode(" ", preg_replace('/\s\s+/', ' ', $cleanTegs));          //  нормализация тегов

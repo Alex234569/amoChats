@@ -8,8 +8,6 @@ include_once 'divToSite.php';
 
 class Controller
 {
-    private DBPutter $dbPutter;
-    private DBGetter $dbGetter;
     private Validate $validate;
 
     public function __construct()
@@ -38,27 +36,19 @@ class Controller
     }
 
 
-/**
- * функция вызова класса, отвечающего за получение информации из БД
- * @param data - входящий массив информации из html формы
-*/   
+
     public function getFromDB(array $data): array
     {
-        $this->dbGetter = new DBGetter();
-        $result = $this->dbGetter->mainGetter($data);
-        return $result;
+        $dbGetter = new DBGetter();
+        return $dbGetter->mainGetter($data);
     }
 
 
-/**
- * функция вызова класса, отвечающего за добавление информации в БД
- * @param data - входящий массив информации из html формы 
-*/    
+
     public function putInDB(array $data): array
     {
-        $this->dbPutter = new DBPutter();
-        $result = $this->dbPutter->mainPutter($data);
-        return $result;
+        $dbPutter = new DBPutter();
+        return $dbPutter->mainPutter($data);
     }
 
 }

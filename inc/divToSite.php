@@ -35,8 +35,8 @@ class DivToSite
         <?php
         foreach ($data['mainResult'] as $one) {
             ?><div class ='result'>
-                <span id='boldText'><?=$one['question']?></span><br />
-                <span id=''><?=$one['answer']?></span><br />
+                <span id='boldText'><?=nl2br($one['question'])?></span><br />
+                <span id=''><?=nl2br($one['answer'])?></span><br />
                 <?php if (!empty($one['url'])){ ?><span id=''><a href="<?=$one['url']?>"><?=$one['url']?></span></a><br /><?php } ?>
                 <?php if (!empty($one['date'])){ ?><span id=''><?=$one['date']?></span><br /><?php } ?>
             </div><?php
