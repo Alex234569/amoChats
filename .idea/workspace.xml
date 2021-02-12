@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0467fa15-88a2-4f74-8681-6690314509d6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/inc/divToSite.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/divToSite.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chats.sql" beforeDir="false" afterPath="$PROJECT_DIR$/stuff/chats.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatsEmpty.sql" beforeDir="false" afterPath="$PROJECT_DIR$/stuff/chatsEmpty.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/questions.docx" beforeDir="false" afterPath="$PROJECT_DIR$/stuff/questions.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/try.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/stuff/try.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +32,14 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\s-slo\Desktop\OS\domains\questions\inc" />
+      <recent name="C:\Users\s-slo\Desktop\OS\domains\questions" />
+      <recent name="C:\Users\s-slo\Desktop\OS\domains\questions\stuff" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="0467fa15-88a2-4f74-8681-6690314509d6" name="Default Changelist" comment="" />
@@ -35,7 +47,22 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613027595524</updated>
+      <workItem from="1613155822381" duration="1909000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
