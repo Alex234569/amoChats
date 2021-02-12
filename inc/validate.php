@@ -18,7 +18,7 @@ class Validate
     private ?array $addTegsArray = NULL;
 
     /**
-     * @param $data на входе массив информации
+     * @param $data array входе массив информации
      * @return array на выходе обычный массив данных с ключем для определения действий
      */
     public function validator(array $data): array
