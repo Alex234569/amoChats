@@ -31,7 +31,7 @@ class DivToSite
 
     public static function DSgetInfo(array $data): void
     {
-        ?><div class="divToSite">
+        ?><div class="divToSite"><span id='boldText'>Результаты поиска:</span>
         <?php
         foreach ($data['mainResult'] as $one) {
             ?><div class ='result'>
@@ -54,11 +54,11 @@ class DivToSite
         ?><div class="divToSite">
                 <span id='boldText'>Добавлен вопрос</span><br />
             <div class ='result'>
-                <span id=''>Вопрос: <?=$data['question']?></span><br />
-                <span id=''>Ответ: <?=$data['answer']?></span><br />
+                <span id='underlinedText'>Вопрос</span>: <?=$data['question']?><br />
+                <span id='underlinedText'>Ответ</span>: <?=$data['answer']?><br />
                 <?php if (!empty($data['url'])){ ?><span id=''><a href="<?=$data['url']?>"><?=$data['url']?></span></a><br /><?php } ?>
                 <?php if (!empty($data['data'])){ ?><span id=''><?=$data['date']?></span><br /><?php } ?>
-                <span id=''>Теги: <?=$data['tegs']?></span><br />
+                <span id='underlinedText'>Теги</span>: <?=$data['tegs']?><br />
             </div>
         </div><?php
     }
