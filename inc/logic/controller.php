@@ -1,10 +1,10 @@
 <?php
 
-include_once 'db/db.php';
-include_once 'db/dbPutter.php';
-include_once 'db/dbGetter.php';
-include_once 'validate.php';
-include_once 'divToSite.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/db/db.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/db/dbPutter.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/db/dbGetter.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/validate.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/divToSite.php';
 
 class Controller
 {
@@ -14,7 +14,7 @@ class Controller
     {
         $this->validate = new Validate;
     }
- 
+
 
     public function mainController(array $data): void 
     {

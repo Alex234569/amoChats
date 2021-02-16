@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/controller.php';;
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/logic/controller.php';;
 $contoller = new Controller();
 
 ?>
@@ -8,7 +8,7 @@ $contoller = new Controller();
 <head>
     <meta charset='utf-8'>
     <title>Чатики</title>
-    <link href='../style.css' rel='stylesheet'>
+    <link href='../web/style.css' rel='stylesheet'>
 </head>
 
 <body>
