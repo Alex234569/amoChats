@@ -23,7 +23,7 @@ class DivToSite
 
     public static function DSerror(string $data): void
     {
-        ?><div class="divToSite">
+        ?><div class="errorToStie">
         <?='Error: ' .$data?>
         </div><?php
     }
