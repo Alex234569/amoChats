@@ -1,30 +1,5 @@
 <?php
-/*
-$mysqli = new mysqli("localhost", "root", "root", "test");
 
-                if ($mysqli->connect_errno) {
-                    echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-                }
-
-
-if (!($stmt = $mysqli->prepare("INSERT INTO main (question, answer, url) VALUES (?, ?, ?)"))) {
-    echo "Не удалось подготовить запрос: (" . $mysqli->errno . ") " . $mysqli->error;
-}
-
-
-$quest = 'quest';
-$ans = 'ans';
-$url = 'url';
-if (!$stmt->bind_param("sss", $quest, $ans, $url)) {
-    echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
-}
-
-
-
-if (!$stmt->execute()) {
-    echo "Не удалось выполнить запрос: (" . $stmt->errno . ") " . $stmt->error;
-}
-*/
 
 class Foo
 {
@@ -33,43 +8,55 @@ class Foo
     private string $password = 'root';
     private string $database = 'test';
     private mysqli $dbCon;
+    private string $error;
+    private mysqli_stmt $prepared;
 
     public function __construct()
     {
         $this->dbCon = mysqli_connect($this->host, $this->user, $this->password, $this->database);
     }
 
-    public function onePrep()
+    public function prep($query)
     {
-        if (!($stmt = $mysqli->prepare("INSERT INTO main (question, answer, url) VALUES (?, ?, ?)"))) {
-            echo "Не удалось подготовить запрос: (" . $mysqli->errno . ") " . $mysqli->error;
+        if (!($this->prepared = $this->dbCon->prepare($query))) {
+            $this->error = "не удалось подготовить запрос. Ошибка: " . $this->dbCon->error;
         }
     }
 
-    public function oneBind()
+    public function bind($ques, $ans, $url)
     {
-        $quest = 'quest';
-        $ans = 'ans';
-        $url = 'url';
-        if (!$stmt->bind_param("sss", $quest, $ans, $url)) {
-            echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
+        if (!$this->prepared->bind_param('sss', $ques, $ans, $url)) {
+            $this->error = "Не удалось привязать параметры";
         }
+
     }
 
-    public function oneExe()
+    public function ex()
     {
-        if (!$stmt->execute()) {
-            echo "Не удалось выполнить запрос: (" . $stmt->errno . ") " . $stmt->error;
+        if (!$this->prepared->execute()){
+
+            $this->error = $this->prepared->error;
+            $this->error = "Не удалось выполнить запрос. Ошибка: $this->error";
         }
     }
 }
 
+
+// запрос
+$query = 'INSERT INTO main (question, answer, url) VALUES (?, ?, ?)';
+
+// что добавляем
+$ques = 'ques1';
+$ans = 'and';
+$url = 'url';
+
+// вызов методов
 $foo = new Foo();
 
 
 
-
-
-
+$foo->prep($query);
+$foo->bind($ques, $ans, $url);
+$foo->ex();
 
 
