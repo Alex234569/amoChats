@@ -18,7 +18,4 @@ class sqlMain
     {
         mysqli_close($this->dbCon);
     }
-
-
-
 }
