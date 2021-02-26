@@ -69,6 +69,10 @@
 .divToSite{
     margin-top: 30px;
 }
+.errorToStie{
+    margin-top: 30px;
+    background-color: orangered;
+}
 .result{
     background: lightblue;
     margin-top: 13px;
