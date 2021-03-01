@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../iForAmo/.idea/iForAmo.iml" filepath="$PROJECT_DIR$/../iForAmo/.idea/iForAmo.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/questions.iml" filepath="$PROJECT_DIR$/.idea/questions.iml" />
     </modules>
   </component>
