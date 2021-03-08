@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0467fa15-88a2-4f74-8681-6690314509d6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/inc/logic/autoloader.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/lib/Class1/Class1.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/lib/Class2/Class2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/lib/main/Autoloader.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/src/Foo.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/in.php" beforeDir="false" afterPath="$PROJECT_DIR$/in.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +24,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectId" id="1oKFuCbqx2AQjV0PIY7NAHWPAMX" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -58,7 +67,9 @@
       <workItem from="1614069441959" duration="1278000" />
       <workItem from="1614972743440" duration="144000" />
       <workItem from="1615011819362" duration="135000" />
-      <workItem from="1615012623742" duration="2575000" />
+      <workItem from="1615012623742" duration="3379000" />
+      <workItem from="1615048436390" duration="2250000" />
+      <workItem from="1615217901062" duration="9829000" />
     </task>
     <servers />
   </component>
