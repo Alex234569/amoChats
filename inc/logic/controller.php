@@ -18,19 +18,21 @@ class Controller
 
     public function mainController(array $data): void 
     {
-        $validate = $this->validate->validator($data);
+        if (!empty($data)) {
+            $validate = $this->validate->validator($data);
 
-        if (isset($validate['error'])) {
-            DivToSite::DSerror($validate['error']);
-        } else {
-            switch ($validate['whatToDo']){
-                case 'getInfo':
-                    $getInfoRes = $this->getFromDB($validate);
-                    isset($getInfoRes['stop']) ? DivToSite::DSerror($getInfoRes['error']) : DivToSite::DSgetInfo($getInfoRes);
-                    break;
-                case 'addInfo':
-                    $putInfoRes = $this->putInDB($validate);
-                    isset($putInfoRes['stop']) ? DivToSite::DSerror($putInfoRes['error']) : DivToSite::DSputInfo($putInfoRes);
+            if (isset($validate['error'])) {
+                DivToSite::DSerror($validate['error']);
+            } else {
+                switch ($validate['whatToDo']) {
+                    case 'getInfo':
+                        $getInfoRes = $this->getFromDB($validate);
+                        isset($getInfoRes['stop']) ? DivToSite::DSerror($getInfoRes['error']) : DivToSite::DSgetInfo($getInfoRes);
+                        break;
+                    case 'addInfo':
+                        $putInfoRes = $this->putInDB($validate);
+                        isset($putInfoRes['stop']) ? DivToSite::DSerror($putInfoRes['error']) : DivToSite::DSputInfo($putInfoRes);
+                }
             }
         }
     }
