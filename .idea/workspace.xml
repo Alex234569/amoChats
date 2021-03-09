@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0467fa15-88a2-4f74-8681-6690314509d6" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/questions.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/questions.iml" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/inc/logic/autoloader.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/lib/Class1/Class1.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/lib/Class2/Class2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/lib/main/Autoloader.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/src/Foo.php" afterDir="false" />
+>>>>>>> 3f711379878ee7eaee46cb3d00ba0dbae23bd2b0
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/in.php" beforeDir="false" afterPath="$PROJECT_DIR$/in.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +27,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectId" id="1oKFuCbqx2AQjV0PIY7NAHWPAMX" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -29,7 +42,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -55,8 +68,18 @@
       <workItem from="1613500544855" duration="634000" />
       <workItem from="1613805112454" duration="23000" />
       <workItem from="1613805152289" duration="13000" />
+<<<<<<< HEAD
       <workItem from="1614149496116" duration="33000" />
       <workItem from="1614149559368" duration="3000" />
+=======
+      <workItem from="1614068434595" duration="716000" />
+      <workItem from="1614069441959" duration="1278000" />
+      <workItem from="1614972743440" duration="144000" />
+      <workItem from="1615011819362" duration="135000" />
+      <workItem from="1615012623742" duration="3379000" />
+      <workItem from="1615048436390" duration="2250000" />
+      <workItem from="1615217901062" duration="9829000" />
+>>>>>>> 3f711379878ee7eaee46cb3d00ba0dbae23bd2b0
     </task>
     <servers />
   </component>
@@ -74,5 +97,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -1,6 +1,6 @@
 <?php
 
-include_once 'inc/controller.php';
+include_once '';
 
 
 
