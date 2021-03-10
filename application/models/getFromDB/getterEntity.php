@@ -1,5 +1,7 @@
 <?php
 
+namespace application\models\getFromDB;
+
 class GetterEntity
 {
     private bool $stop = false;
@@ -24,7 +26,6 @@ class GetterEntity
  */
     public function GEgetAll(): array
     {
-
         $data = [];
         if ($this->stop != true) {
             $data['tegsString'] = $this->GEgetTegsString;

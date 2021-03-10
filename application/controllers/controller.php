@@ -1,10 +1,11 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/db/dbOld.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/db/dbPutter.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/db/dbGetter.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/validate.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/divToSite.php';
+namespace application\controllers;
+
+use application\models\validate\validate;
+use application\models\getFromDB\dbGetter;
+use application\models\putInDB\dbPutter;
+use application\views\divToSite;
 
 class Controller
 {
@@ -20,7 +21,6 @@ class Controller
     {
         if (!empty($data)) {
             $validate = $this->validate->validator($data);
-
             if (isset($validate['error'])) {
                 DivToSite::DSerror($validate['error']);
             } else {
@@ -42,6 +42,7 @@ class Controller
     public function getFromDB(array $data): array
     {
         $dbGetter = new DBGetter();
+        echo 'i was here';
         return $dbGetter->mainGetter($data);
     }
 

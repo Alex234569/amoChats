@@ -1,6 +1,10 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/logic/controller.php';;
-$contoller = new Controller();
+
+//include_once DIR . '/controllers/controller.php';;
+
+use application\controllers\controller;
+$contoller = new controller();
+
 
 ?>
 <!DOCTYPE html>
@@ -8,7 +12,7 @@ $contoller = new Controller();
 <head>
     <meta charset='utf-8'>
     <title>Чатики</title>
-    <link href='../web/style.css' rel='stylesheet'>
+    <link href='../../../js/style.css' rel='stylesheet'>
 </head>
 
 <body>

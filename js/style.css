@@ -1,0 +1,129 @@
+.header {
+  /*  background: #ccc;  */
+    width: 95%;
+    margin-left: 2%;
+    position: fixed; 
+    top: 5px; 
+}
+.main{
+    border: solid 2px black;
+    display: flex;
+    margin: auto;
+    margin-top: 50px;
+    width: 75%;
+
+}   
+.footer{
+    background: darkred;
+    
+    width: 95%;
+    margin-left: 2%;
+
+    position: fixed; 
+    bottom: 0px;
+}
+
+
+
+.leftColomn {
+    background: yellow;
+    width: calc(15% - 20px);
+    height: inherit;
+
+    padding-right: 20px;
+    position: inherit;
+}
+
+
+.rightColomn{
+    background: deepskyblue;
+    width: calc(15% - 20px);
+    height: inherit;
+
+    padding-left: 20px;
+}
+
+.center{
+    background: yellowgreen;
+    width: calc(70% - 40px);
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+
+
+.centerGetInfo{
+    background: pink;
+}
+.centerAddInfo{
+    background: gold;
+}
+.centerAnswer{
+    background: whitesmoke;
+    border-top: solid 1px black;
+}
+
+
+.divToSite{
+    margin-top: 30px;
+}
+.errorToStie{
+    margin-top: 30px;
+    background-color: orangered;
+}
+.result{
+    background: lightblue;
+    margin-top: 13px;
+
+    border: black solid 1px;
+    border-radius: 10px;
+
+    padding: 5px;
+}
+.resultQuestion{
+    background: whitesmoke;
+}
+.resultBody{
+    background: ghostwhite;
+    padding-top: 10px;
+}
+
+#textareaGetInfo{
+    width: calc(100% - 6px);
+    height: 18px;
+    background: cyan;
+}
+#textareaAddInfoQuestion{
+    width: calc(100% - 6px);
+    height: 40px;
+}
+#textareaAddInfoAnswer{
+    width: calc(100% - 6px);
+    height: 50px;
+}
+#textareaAddInfoTegs{
+    width: calc(100% - 6px);
+    height: 18px;
+}
+#textareaAddInfoUrl{
+    width: calc(100% - 6px);
+    height: 18px;
+}
+#boldText{
+    font-weight: bold;
+}
+#underlinedText{
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
