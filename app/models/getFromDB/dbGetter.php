@@ -1,9 +1,9 @@
 <?php
 
-namespace application\models\getFromDB;
+namespace app\models\getFromDB;
 
-use application\models\getFromDB\getterEntity;
-use application\models\lib\dbConnector;
+use app\models\getFromDB\getterEntity;
+use app\models\lib\dbConnector;
 
 class DBGetter
 {

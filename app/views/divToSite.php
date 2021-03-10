@@ -1,6 +1,6 @@
 <?php
 
-namespace application\views;
+namespace app\views;
 
 class DivToSite
 {

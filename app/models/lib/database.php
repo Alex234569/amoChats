@@ -1,6 +1,6 @@
 <?php
 
-namespace application\models\lib;
+namespace app\models\lib;
 
 trait Database
 {

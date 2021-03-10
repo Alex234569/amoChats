@@ -1,9 +1,9 @@
 <?php
 
-namespace application\models\putInDB;
+namespace app\models\putInDB;
 
 use PutterEntity;
-use application\models\lib\db;
+use app\models\lib\db;
 
 class DBPutter
 {

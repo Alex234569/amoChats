@@ -2,7 +2,7 @@
 
 //include_once DIR . '/controllers/controller.php';;
 
-use application\controllers\controller;
+use app\controllers\controller;
 $contoller = new controller();
 
 

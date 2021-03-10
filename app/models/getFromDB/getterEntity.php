@@ -1,6 +1,6 @@
 <?php
 
-namespace application\models\getFromDB;
+namespace app\models\getFromDB;
 
 class GetterEntity
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace application\controllers;
+namespace app\controllers;
 
-use application\models\validate\validate;
-use application\models\getFromDB\dbGetter;
-use application\models\putInDB\dbPutter;
-use application\views\divToSite;
+use app\models\validate\validate;
+use app\models\getFromDB\dbGetter;
+use app\models\putInDB\dbPutter;
+use app\views\divToSite;
 
 class Controller
 {

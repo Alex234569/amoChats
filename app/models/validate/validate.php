@@ -1,6 +1,6 @@
 <?php
 
-namespace application\models\validate;
+namespace app\models\validate;
 
 class Validate
 {

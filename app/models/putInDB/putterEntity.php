@@ -1,6 +1,6 @@
 <?php
 
-namespace application\models\putInDB;
+namespace app\models\putInDB;
 
 class PutterEntity
 {
