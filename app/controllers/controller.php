@@ -42,7 +42,6 @@ class Controller
     public function getFromDB(array $data): array
     {
         $dbGetter = new DBGetter();
-        echo 'i was here';
         return $dbGetter->mainGetter($data);
     }
 

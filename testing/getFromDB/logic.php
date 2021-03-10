@@ -18,19 +18,21 @@ class Boo
             LEFT JOIN compound ON main.id_main = compound.id_main 
             LEFT JOIN tegs ON compound.id_teg = tegs.id_teg 
             WHERE tegs.teg = ?';
-/*
+
         $query = 'SELECT main.question, main.answer, main.url, main.date FROM main 
             LEFT JOIN compound ON main.id_main = compound.id_main 
             LEFT JOIN tegs ON compound.id_teg = tegs.id_teg 
-            WHERE tegs.teg IN ("животное", "говорить") 
-            GROUP BY main.id_main HAVING (COUNT(*) = 2)';
-*/
+            WHERE tegs.teg IN (?, ?) 
+            GROUP BY main.id_main HAVING (COUNT(*) = ?)';
 
-        $id = 'asd';
+
+        $id = 'teg';
+        $id2 = 'best';
+        $num = '2';
 
         $this->mysqli_stmt = $this->mysqli->prepare($query);
 
-        $this->mysqli_stmt->bind_param('s', $id);
+        $this->mysqli_stmt->bind_param('sss', $id, $id2, $num);
         $this->mysqli_stmt->execute();
         $this->mysqli_stmt->bind_result($id_main, $question, $answer, $url);
         $this->mysqli_stmt->fetch();
