@@ -2,19 +2,18 @@
 
 namespace app\models\lib;
 
-class DBConnector
+class DataBaseChats
 {
     private string $host = 'localhost';
     private string $user = 'root';
     private string $password = 'root';
     private string $database = 'chats';
-    private mysqli $mysqli;
+    private \mysqli $mysqli;
 
 
     public function __construct()
     {
-        $this->mysqli = mysqli_connect($this->host, $this->user, $this->password, $this->database);
-        print_r($mysqli);
+        $this->mysqli = new \mysqli($this->host, $this->user, $this->password, $this->database);
     }
 
     public function __destruct()
@@ -23,7 +22,7 @@ class DBConnector
     }
 
     /**
-     * @return false|mysqli
+     * @return false|\mysqli
      */
     public function getMysqli()
     {

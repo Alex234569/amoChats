@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\validate\validate;
-use app\models\getFromDB\dbGetter;
+use app\models\getFromDB\Getter;
 use app\models\putInDB\dbPutter;
 use app\views\divToSite;
 
@@ -41,7 +41,7 @@ class Controller
 
     public function getFromDB(array $data): array
     {
-        $dbGetter = new DBGetter();
+        $dbGetter = new Getter();
         return $dbGetter->mainGetter($data);
     }
 
