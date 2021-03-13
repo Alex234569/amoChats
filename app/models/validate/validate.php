@@ -9,15 +9,15 @@ class Validate
     
     private string $whatToDo;    
     
-    private ?string $getTegsString = NULL;
-    private ?array $getTegsArray = NULL;
+    private ?string $getTagsString = NULL;
+    private ?array $getTagsArray = NULL;
 
     private ?string $addQuestion = NULL;    
     private ?string $addAnswer = NULL;    
     private ?string $addUrl = NULL;    
     private ?string $addDate = NULL;    
-    private ?string $addTegsString = NULL;    
-    private ?array $addTegsArray = NULL;
+    private ?string $addTagsString = NULL;
+    private ?array $addTagsArray = NULL;
 
     /**
      * @param $data array входе массив информации
@@ -45,14 +45,13 @@ class Validate
     {
         $cleanData = trim($data['getInfo']);
         if (!empty($cleanData)){
-            $tegsArr = explode(" ", preg_replace('/\s\s+/', ' ', $cleanData));          //  нормализация тегов: без пробелов и повторов
-            $tegsArr = array_unique($tegsArr, SORT_STRING);
-            $getTegsString = '';
-            $getTegsString = implode(' ', $tegsArr);
+            $tagsArr = explode(" ", preg_replace('/\s\s+/', ' ', $cleanData));          //  нормализация тегов: без пробелов и повторов
+            $tagsArr = array_unique($tagsArr, SORT_STRING);
+            $getTagsString = implode(' ', $tagsArr);
 
             $this->whatToDo = 'getInfo';
-            $this->getTegsString = $getTegsString;
-            $this->getTegsArray = $tegsArr;
+            $this->getTagsString = $getTagsString;
+            $this->getTagsArray = $tagsArr;
         } else {
             $this->stop = true;
             $this->error = 'Empty querry to search (/inc/validate.php)';
@@ -64,19 +63,18 @@ class Validate
     {
         $cleanQuestion = trim($data['addInfoQuestion']);
         $cleanAnswer = trim($data['addInfoAnswer']);
-        $cleanTegs = trim($data['addInfoTegs']);
+        $cleanTags = trim($data['addInfoTags']);
 
-        if (!empty($cleanQuestion) && !empty($cleanAnswer) && !empty($cleanTegs)){
-            $tegsArr = explode(" ", preg_replace('/\s\s+/', ' ', $cleanTegs));          //  нормализация тегов
-            $tegsArr = array_unique($tegsArr, SORT_STRING);
-            $addTegsString = '';
-            $addTegsString = implode(' ', $tegsArr);
+        if (!empty($cleanQuestion) && !empty($cleanAnswer) && !empty($cleanTags)){
+            $tagsArr = explode(" ", preg_replace('/\s\s+/', ' ', $cleanTags));          //  нормализация тегов
+            $tagsArr = array_unique($tagsArr, SORT_STRING);
+            $addTagsString = implode(' ', $tagsArr);
 
             $this->whatToDo = 'addInfo';
             $this->addQuestion = $cleanQuestion;
             $this->addAnswer = $cleanAnswer;
-            $this->addTegsString = $addTegsString;
-            $this->addTegsArray = $tegsArr;            
+            $this->addTagsString = $addTagsString;
+            $this->addTagsArray = $tagsArr;
             if (!empty($data['addInfoUrl'])) {
                 $cleanUrl = trim($data['addInfoUrl']);
                 if (filter_var($cleanUrl, FILTER_VALIDATE_URL) !=false){
@@ -89,7 +87,7 @@ class Validate
             $this->addDate = isset($data['addInfoDate']) ? $data['addInfoDate'] : NULL;
         } else {
             $this->stop = true;
-            $this->error = 'Empty querry to add (/inc/validate.php)';
+            $this->error = 'Empty query to add (/inc/validate.php)';
         }
     }
     
@@ -107,8 +105,8 @@ class Validate
     {
         $data = [];
         $data['whatToDo'] = $this->whatToDo;
-        $data['getTegsString'] = $this->getTegsString;
-        $data['getTegsArray'] = $this->getTegsArray;
+        $data['getTagsString'] = $this->getTagsString;
+        $data['getTagsArray'] = $this->getTagsArray;
         return $data;
     }
 
@@ -121,8 +119,8 @@ class Validate
         $data['addAnswer'] = $this->addAnswer;
         $data['addUrl'] = $this->addUrl;
         $data['addDate'] = $this->addDate;
-        $data['addTegsString'] = $this->addTegsString;
-        $data['addTegsArray'] = $this->addTegsArray;
+        $data['addTagsString'] = $this->addTagsString;
+        $data['addTagsArray'] = $this->addTagsArray;
         return $data;
     }
 

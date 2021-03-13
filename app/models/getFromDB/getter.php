@@ -4,6 +4,11 @@ namespace app\models\getFromDB;
 
 use app\models\lib\DataBaseChats;
 
+/**
+ * Класс для получения информации по тегам
+ * Class Getter
+ * @package app\models\getFromDB
+ */
 class Getter
 {
     private GetterEntity $getterEntity;
@@ -19,79 +24,102 @@ class Getter
     }
 
 
-/**
- * Основная функция, отвечающая за порядок запросов
- * @param data входящий массив, это строка с перечислением тегов
- */
+    /**
+     * Основая функция контролирующая получение информации по тегам
+     * @param array $data
+     * @return array
+     */
     public function mainGetter(array $data): array
     {
-        echo "<pre>";
-        $this->getterEntity->GEsetData($data);                  //  отправка данных из запроса в хранилище
-        print_r($this->getterEntity);
-        $this->mainSearcher();
-        return $this->getterEntity->GEgetAll();
+        $this->getterEntity->setData($data);
+        $mainInfoWithoutTag = $this->mainSearcher();
+        empty($mainInfoWithoutTag) ? $this->getterEntity->setResultEmpty() : $this->addTegToResult($mainInfoWithoutTag);
+        return $this->getterEntity->getResult();
     }
 
 
-/**
- * олтвечает за поиск информации по тегам
- */
-    private function mainSearcher(): void
+    /**
+     * Ищет пару вопрос+ответ по полученным тегам
+     * @return array
+     */
+    private function mainSearcher(): ?array
     {
-        $tegsToSearchArr = $this->getterEntity->GEgetTegsToSearchArr();
+        $tagsToSearchArr = $this->getterEntity->getTagsToSearchArr();
 
-        $tegsAmount = count($tegsToSearchArr);
+        $tagsAmount = count($tagsToSearchArr);
 
-        for ($n = 0; $n < $tegsAmount; $n++){
+        for ($n = 0; $n < $tagsAmount; $n++){
             $numberParams .= '?, ';
         }
         $numberParams = mb_substr($numberParams, -0, -2);
 
-        $query = "SELECT main.question, main.answer, main.url, main.date FROM main 
+        $query = "SELECT main.id_main, main.question, main.answer, main.url, main.date FROM main 
             LEFT JOIN compound ON main.id_main = compound.id_main 
             LEFT JOIN tegs ON compound.id_teg = tegs.id_teg 
             WHERE tegs.teg IN ($numberParams) GROUP BY main.id_main HAVING (COUNT(*) = ?)";
 
-    echo $query . "\n";
         $this->mysqli_stmt = $this->mysqli->prepare($query);
-
-        switch ($tegsAmount){
+        switch ($tagsAmount){
             case 1:
-                $this->mysqli_stmt->bind_param('ss', $tegsToSearchArr[0],  $tegsAmount);
+                $this->mysqli_stmt->bind_param('ss', $tagsToSearchArr[0],  $tagsAmount);
                 break;
             case 2:
-                $this->mysqli_stmt->bind_param('sss', $tegsToSearchArr[0], $tegsToSearchArr[1], $tegsAmount);
+                $this->mysqli_stmt->bind_param('sss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsAmount);
                 break;
             case 3:
-                $this->mysqli_stmt->bind_param('ssss', $tegsToSearchArr[0], $tegsToSearchArr[1], $tegsToSearchArr[2], $tegsAmount);
+                $this->mysqli_stmt->bind_param('ssss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2], $tagsAmount);
                 break;
             case 4:
-                $this->mysqli_stmt->bind_param('sssss', $tegsToSearchArr[0], $tegsToSearchArr[1], $tegsToSearchArr[2], $tegsToSearchArr[3], $tegsAmount);
+                $this->mysqli_stmt->bind_param('sssss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2], $tagsToSearchArr[3], $tagsAmount);
                 break;
             case 5:
-                $this->mysqli_stmt->bind_param('ssssss', $tegsToSearchArr[0], $tegsToSearchArr[1], $tegsToSearchArr[2], $tegsToSearchArr[3], $tegsToSearchArr[4], $tegsAmount);
+                $this->mysqli_stmt->bind_param('ssssss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2], $tagsToSearchArr[3], $tagsToSearchArr[4], $tagsAmount);
                 break;
             default:
-                echo 'too many teg';
+                echo 'too many tags';
         }
 
-
-
-
+        $result = NULL;
         $this->mysqli_stmt->execute();
-        $this->mysqli_stmt->bind_result($id_main, $question, $answer, $url);
-        $this->mysqli_stmt->fetch();
-        $this->mysqli_stmt->close();
+        $this->mysqli_stmt->bind_result( $idMain, $question, $answer, $url, $date);
+        while ($this->mysqli_stmt->fetch()) {
+            $one['idMain'] = $idMain;
+            $one['question'] = $question;
+            $one['answer'] = $answer;
+            $one['url'] = $url;
+            $one['date'] = $date;
+            $result[] = $one;
+        }
+
+        return $result;
+    }
 
 
-        var_dump($id_main, $question, $answer, $url);
+    /**
+     * Добалвение списка тегов к паре вопрос+ответ
+     * @param array $data
+     */
+    private function addTegToResult(array $data): void
+    {
+        foreach ($data as $key => $one) {
+            $tags = [];
+            $query = "SELECT tegs.teg FROM main 
+                LEFT JOIN compound ON main.id_main = compound.id_main 
+                LEFT JOIN tegs ON compound.id_teg = tegs.id_teg 
+                WHERE main.id_main = ?";
+            $this->mysqli_stmt->prepare($query);
+            $this->mysqli_stmt->bind_param('s', $one['idMain']);
+            $this->mysqli_stmt->execute();
+            $this->mysqli_stmt->bind_result($tag);
+            while ($this->mysqli_stmt->fetch()) {
+                $tags[] = $tag;
+            }
+            $data[$key]['teg'] = implode(' ', $tags);
+        }
 
-
-
-        if (!empty($result)) {
-            $this->getterEntity->GEsetResultArr($result);
-        } else {
-            $this->getterEntity->GEsetResultEmpty();
-        }   
+        $this->getterEntity->setResultArr($data);
     }
 }
+
+
+

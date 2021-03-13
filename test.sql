@@ -16,7 +16,9 @@ SELECT * FROM tegs WHERE teg = 'говорить';
 SELECT id_main FROM compound WHERE id_teg IN (1, 2) GROUP BY id_main HAVING (COUNT(*) = 2);
 SELECT compound.id_main FROM compound WHERE compound.id_teg IN (1, 2) GROUP BY compound.id_main HAVING (COUNT(*) = 2);
 SELECT compound.id_main FROM compound LEFT JOIN tegs ON compound.id_teg = tegs.id_teg WHERE tegs.teg IN ('животное', 'говорить') GROUP BY compound.id_main HAVING (COUNT(*) = 2);
-SELECT main.question, main.answer, main.url, main.date FROM main LEFT JOIN compound ON main.id_main = compound.id_main LEFT JOIN tegs ON compound.id_teg = tegs.id_teg WHERE tegs.teg IN ('животное', 'говорить') GROUP BY main.id_main HAVING (COUNT(*) = 2);
+SELECT main.id_main, main.question, main.answer, main.url, main.date FROM main LEFT JOIN compound ON main.id_main = compound.id_main LEFT JOIN tegs ON compound.id_teg = tegs.id_teg WHERE tegs.teg IN ('teg') GROUP BY main.id_main HAVING (COUNT(*) = 1);
+SELECT tegs.teg FROM main LEFT JOIN compound ON main.id_main = compound.id_main LEFT JOIN tegs ON compound.id_teg = tegs.id_teg WHERE main.id_main = 44;
+
 /*  COUNT(*) = количество аргументов в IN  */
 SELECT main.question, main.answer, main.url, main.date FROM mainLEFT JOIN compound ON main.id_main = compound.id_mainLEFT JOIN tegs ON compound.id_teg = tegs.id_tegWHERE tegs.teg IN ($numberParams) GROUP BY main.id_main HAVING (COUNT(*) = ?
 SELECT * FROM tegs WHERE teg = 'животное' OR teg = 'говорить';

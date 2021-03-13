@@ -22,24 +22,34 @@ class Boo
         $query = 'SELECT main.question, main.answer, main.url, main.date FROM main 
             LEFT JOIN compound ON main.id_main = compound.id_main 
             LEFT JOIN tegs ON compound.id_teg = tegs.id_teg 
-            WHERE tegs.teg IN (?, ?) 
+            WHERE tegs.teg IN (?) 
             GROUP BY main.id_main HAVING (COUNT(*) = ?)';
 
 
         $id = 'teg';
-        $id2 = 'best';
-        $num = '2';
+        $num = '1';
 
         $this->mysqli_stmt = $this->mysqli->prepare($query);
 
-        $this->mysqli_stmt->bind_param('sss', $id, $id2, $num);
+        $this->mysqli_stmt->bind_param('ss', $id,  $num);
         $this->mysqli_stmt->execute();
         $this->mysqli_stmt->bind_result($id_main, $question, $answer, $url);
-        $this->mysqli_stmt->fetch();
+   /*     $this->mysqli_stmt->fetch();
+        $this->mysqli_stmt->close();
+*/
+        while ($this->mysqli_stmt->fetch()) {
+            $a['id'] = $id_main;
+            $a['que'] = $question;
+            $b[] = $a;
+        }
+        print_r($b);
+
         $this->mysqli_stmt->close();
 
 
-        var_dump($id_main, $question, $answer, $url);
+
+
+    //    var_dump($id_main, $question, $answer, $url);
 
     }
 }

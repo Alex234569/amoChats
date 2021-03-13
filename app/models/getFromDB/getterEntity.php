@@ -2,34 +2,41 @@
 
 namespace app\models\getFromDB;
 
-class GetterEntity
+/**
+ * Хранитель для получения информации по тегам
+ * Class GetterEntity
+ * @package app\models\getFromDB
+ */
+class GetterEntity extends Getter
 {
     private bool $stop = false;
     private ?string $error = NULL;
     
-    private ?string $GEgetTegsString = NULL;
-    private ?array $GEgetTegsArray = NULL;
+    private ?string $GEgetTagsString = NULL;
+    private ?array $GEgetTagsArray = NULL;
+    private array $resultingArr;
 
 
-/**
- * отвечает за прием данных из запроса, их очистку и запись в объекты
- * @param tegs - входящий запрос
- */
-    public function GEsetData(array $tegs): void
+    /**
+     * Разъединяет входящую информацию
+     * @param array $data входящие теги в виде массива и строки
+     */
+    public function setData(array $data): void
     {
-        $this->GEgetTegsString = $tegs['getTegsString'];
-        $this->GEgetTegsArray = $tegs['getTegsArray'];
+        $this->GEgetTagsString = $data['getTagsString'];
+        $this->GEgetTagsArray = $data['getTagsArray'];
     }
 
-/**
- * подготавливает массив с даными для вывода, их обработка будет осуществляться в header.php
- */
-    public function GEgetAll(): array
+    /**
+     * Возвращает данные на отображение
+     * @return array
+     */
+    public function getResult(): array
     {
         $data = [];
         if ($this->stop != true) {
-            $data['tegsString'] = $this->GEgetTegsString;
-            $data['mainResult'] = $this->GEmainArrays;
+            $data['tegsString'] = $this->GEgetTagsString;
+            $data['mainResult'] = $this->resultingArr;
             return $data;
         } else {
             $data['stop'] = $this->stop;
@@ -41,21 +48,32 @@ class GetterEntity
 
 //  Set
 
-    public function GEsetResultArr(array $mainArr)
+    /**
+     * Устанавливает массив данных для отображения
+     * @param array $data
+     */
+    public function setResultArr(array $data)
     {
-        $this->GEmainArrays = $mainArr;
+        $this->resultingArr = $data;
     }
 
-    public function GEsetResultEmpty(): void
+    /**
+     * Устанавливает стоппер
+     */
+    public function setResultEmpty(): void
     {
         $this->stop = true;
-        $this->error = "Нет данных по тегам: $this->GEgetTegsString";
+        $this->error = "Нет данных по тегам: $this->GEgetTagsString";
     }
     
 //  Get
 
-    public function GEgetTegsToSearchArr(): array
+    /**
+     * Выдает массив тегов для поиска
+     * @return array
+     */
+    public function getTagsToSearchArr(): array
     {
-        return $this->GEgetTegsArray;
+        return $this->GEgetTagsArray;
     }
 }
