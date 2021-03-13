@@ -7,24 +7,24 @@ namespace app\models\getFromDB;
  * Class GetterEntity
  * @package app\models\getFromDB
  */
-class GetterEntity extends Getter
+class GetterEntity
 {
     private bool $stop = false;
     private ?string $error = NULL;
     
-    private ?string $GEgetTagsString = NULL;
-    private ?array $GEgetTagsArray = NULL;
+    private ?string $getTagsString = NULL;
+    private ?array $getTagsArray = NULL;
     private array $resultingArr;
 
 
     /**
      * Разъединяет входящую информацию
-     * @param array $data входящие теги в виде массива и строки
+     * @param array $data входящие теги, в виде массива и строки
      */
     public function setData(array $data): void
     {
-        $this->GEgetTagsString = $data['getTagsString'];
-        $this->GEgetTagsArray = $data['getTagsArray'];
+        $this->getTagsString = $data['getTagsString'];
+        $this->getTagsArray = $data['getTagsArray'];
     }
 
     /**
@@ -35,7 +35,7 @@ class GetterEntity extends Getter
     {
         $data = [];
         if ($this->stop != true) {
-            $data['tegsString'] = $this->GEgetTagsString;
+            $data['tagsString'] = $this->getTagsString;
             $data['mainResult'] = $this->resultingArr;
             return $data;
         } else {
@@ -63,7 +63,7 @@ class GetterEntity extends Getter
     public function setResultEmpty(): void
     {
         $this->stop = true;
-        $this->error = "Нет данных по тегам: $this->GEgetTagsString";
+        $this->error = "Нет данных по тегам: $this->getTagsString";
     }
     
 //  Get
@@ -74,6 +74,6 @@ class GetterEntity extends Getter
      */
     public function getTagsToSearchArr(): array
     {
-        return $this->GEgetTagsArray;
+        return $this->getTagsArray;
     }
 }

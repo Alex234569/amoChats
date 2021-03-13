@@ -114,7 +114,7 @@ class Getter
             while ($this->mysqli_stmt->fetch()) {
                 $tags[] = $tag;
             }
-            $data[$key]['teg'] = implode(' ', $tags);
+            $data[$key]['tag'] = implode(' ', $tags);
         }
 
         $this->getterEntity->setResultArr($data);
