@@ -31,7 +31,7 @@ class Getter
      */
     public function mainGetter(array $data): array
     {
-        $this->getterEntity->setData($data);
+        $this->getterEntity->separator($data);
         $mainInfoWithoutTag = $this->mainSearcher();
         empty($mainInfoWithoutTag) ? $this->getterEntity->setResultEmpty() : $this->addTegToResult($mainInfoWithoutTag);
         return $this->getterEntity->getResult();
@@ -45,9 +45,9 @@ class Getter
     private function mainSearcher(): ?array
     {
         $tagsToSearchArr = $this->getterEntity->getTagsToSearchArr();
-
         $tagsAmount = count($tagsToSearchArr);
 
+        $numberParams = '';
         for ($n = 0; $n < $tagsAmount; $n++){
             $numberParams .= '?, ';
         }
@@ -117,6 +117,7 @@ class Getter
             $data[$key]['tag'] = implode(' ', $tags);
         }
 
+        $this->mysqli_stmt->close();
         $this->getterEntity->setResultArr($data);
     }
 }

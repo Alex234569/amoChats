@@ -21,7 +21,7 @@ class GetterEntity
      * Разъединяет входящую информацию
      * @param array $data входящие теги, в виде массива и строки
      */
-    public function setData(array $data): void
+    public function separator(array $data): void
     {
         $this->getTagsString = $data['getTagsString'];
         $this->getTagsArray = $data['getTagsArray'];

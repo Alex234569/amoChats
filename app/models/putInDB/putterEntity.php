@@ -7,44 +7,43 @@ class PutterEntity
     private bool $stop = false;
     private ?string $error = NULL;
 
-    private ?int $PEid = NULL;
-    private string $PEquestion;
-    private string $PEanswer;
-    private ?string $PEurl = NULL;
-    private ?string $PEdate = NULL;
+    private ?int $id = NULL;
+    private string $question;
+    private string $answer;
+    private ?string $url = NULL;
+    private ?string $date = NULL;
 
-    private ?string $PEaddTegsString = NULL;
-    private ?array $PEaddTegsArray = NULL;
-    private ?array $PEtegsWithIdArray = NULL;
+    private ?string $addTagsString = NULL;
+    private ?array $addTagsArray = NULL;
+    private ?array $tagsWithIdArray = NULL;
 
-/**
- * отвечает за прием данных из запроса, их очистку и запись в объекты
- * @param askArray - входящий запрос
- */
-    public function PEseparator(array $data)
+    /**
+     * Разъединяет входящую информацию
+     * @param array $data
+     */
+    public function separator(array $data): void
     {
-        $this->PEquestion = $data['addQuestion'];
-        $this->PEanswer = $data['addAnswer'];
-        $this->PEurl = isset($data['addUrl']) ? $data['addUrl'] : NULL;
-        $this->PEdate = isset($data['addDate']) ? $data['addDate'] : NULL;
-        $this->PEaddTegsString = $data['addTegsString'];
-        $this->PEaddTegsArray = $data['addTegsArray'];
+        $this->question = $data['addQuestion'];
+        $this->answer = $data['addAnswer'];
+        $this->url = isset($data['addUrl']) ? $data['addUrl'] : NULL;
+        $this->date = isset($data['addDate']) ? $data['addDate'] : NULL;
+        $this->addTagsString = $data['addTagsString'];
+        $this->addTagsArray = $data['addTagsArray'];
     }
 
 /**
  * подготавливает массив с избыточнм количеством даных для вывода, их обработка будет осуществляться в header.php
  */
-    public function PEgetAll(): array
+    public function getAll(): array
     {
         $data = [];
-        $data = [];
         if ($this->stop != true) {
-            $data['id'] = $this->PEid;
-            $data['question'] = $this->PEquestion;
-            $data['answer'] = $this->PEanswer;
-            $data['url'] = $this->PEurl;
-            $data['date'] = $this->PEdate;
-            $data['tegs'] = $this->PEaddTegsString;
+            $data['id'] = $this->id;
+            $data['question'] = $this->question;
+            $data['answer'] = $this->answer;
+            $data['url'] = $this->url;
+            $data['date'] = $this->date;
+            $data['tags'] = $this->addTagsString;
             return $data;
         } else {
             $data['stop'] = $this->stop;
@@ -57,57 +56,66 @@ class PutterEntity
 
 //  Set
 
-    public function PEsetId(array $arr): void
+    public function setId(array $arr): void
     {
-        $this->PEid = $arr['0']['id_main'];
-    }
-    public function PEsetTegsWithId(array $tegs): void
-    {
-        $this->PEtegsWithIdArray = $tegs;
+        $this->id = $arr['0']['id_main'];
     }
 
-    public function PEsetResultEmpty(): void
+    /**
+     * Сохранение массива тегов с их id
+     * @param array $tags
+     */
+    public function setTagsWithId(array $tags): void
+    {
+        $this->tagsWithIdArray = $tags;
+    }
+
+    public function setResultEmpty(): void
     {
         $this->stop = true;
-        $this->error = "Нет данных по тегам: $this->PEgetTegsString";
+        $this->error = "Нет данных по тегам: $this->addTagsString";
     }
 
 
 //  Get
 
-    public function PEgetId()
+    public function getId()
     {
-        return $this->PEid;
+        return $this->id;
     }
 
-    public function PEgetQuestion()
+    public function getQuestion()
     {
-        return $this->PEquestion;
+        return $this->question;
     }
 
-    public function PEgetAnswer(): string
+    public function getAnswer(): string
     {
-        return $this->PEanswer;
+        return $this->answer;
     }
 
-    public function PEgetUrl(): ?string
+    public function getUrl(): ?string
     {
-        return $this->PEurl;
+        return $this->url;
     }
 
-    public function PEgetDate(): ?string
+    public function getDate(): ?string
     {
-        return $this->PEdate;
+        return $this->date;
     }
 
-    public function PEgetTegsToSearch(): array
+    /**
+     * Выдача первоначального списка тегов
+     * @return array
+     */
+    public function getTagsToSearch(): array
     {
-        return $this->PEaddTegsArray;
+        return $this->addTagsArray;
     }
 
-    public function PEgetTegsFromDB(): array
+    public function getTagsFromDB(): array
     {
-        return $this->PEtegsWithIdArray;
+        return $this->tagsWithIdArray;
     }
 
 }

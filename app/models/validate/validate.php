@@ -20,17 +20,17 @@ class Validate
     private ?array $addTagsArray = NULL;
 
     /**
-     * @param $data array входе массив информации
+     * @param array $data
      * @return array на выходе обычный массив данных с ключем для определения действий
      */
     public function validator(array $data): array
     {
         switch($data['button']) {
             case 'getInfo':
-                $this->VgetInfo($data);
+                $this->getInfo($data);
                 return empty($this->error) ? $this->getGetInfo() : $this->getError();
             case 'addInfo':
-                $this->VaddInfo($data);
+                $this->addInfo($data);
                 return empty($this->error) ? $this->getAddInfo() : $this->getError();
             default:
                 $this->stop = true;
@@ -40,8 +40,11 @@ class Validate
         }
     }
 
-
-    private function VgetInfo($data): void
+    /**
+     * Подготовка данных для запроса информации из БД по тегам
+     * @param array $data
+     */
+    private function getInfo(array $data): void
     {
         $cleanData = trim($data['getInfo']);
         if (!empty($cleanData)){
@@ -58,8 +61,11 @@ class Validate
         }
     }
 
-
-    private function VaddInfo($data): void
+    /**
+     * Подготовка данных для добавления их в БД
+     * @param array $data
+     */
+    private function addInfo(array $data): void
     {
         $cleanQuestion = trim($data['addInfoQuestion']);
         $cleanAnswer = trim($data['addInfoAnswer']);
