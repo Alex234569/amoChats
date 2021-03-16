@@ -4,7 +4,7 @@ namespace app\models\putInDB;
 
 use app\models\lib\DataBaseChats;
 
-class DBPutter
+class Putter
 {
     private DataBaseChats $dataBaseChats;
     private PutterEntity $putterEntity;

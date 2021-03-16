@@ -34,7 +34,7 @@ class Validate
                 return empty($this->error) ? $this->getAddInfo() : $this->getError();
             default:
                 $this->stop = true;
-                $this->error = 'No such case to validate (/inc/validate.php)';
+                $this->error = 'No such case to validate (/inc/Validate.php)';
  
                 return $this->getError();
         }
@@ -57,7 +57,7 @@ class Validate
             $this->getTagsArray = $tagsArr;
         } else {
             $this->stop = true;
-            $this->error = 'Empty querry to search (/inc/validate.php)';
+            $this->error = 'Empty querry to search (/inc/Validate.php)';
         }
     }
 
@@ -87,13 +87,13 @@ class Validate
                     $this->addUrl = $cleanUrl;
                 } else {
                     $this->stop = true;
-                    $this->error = 'Wrong URL (/inc/validate.php)';
+                    $this->error = 'Wrong URL (/inc/Validate.php)';
                 }
             }
             $this->addDate = isset($data['addInfoDate']) ? $data['addInfoDate'] : NULL;
         } else {
             $this->stop = true;
-            $this->error = 'Empty query to add (/inc/validate.php)';
+            $this->error = 'Empty query to add (/inc/Validate.php)';
         }
     }
     

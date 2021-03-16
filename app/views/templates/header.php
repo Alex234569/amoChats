@@ -1,8 +1,8 @@
 <?php
 
-//include_once DIR . '/controllers/controller.php';;
+//include_once DIR . '/controllers/Controller.php';;
 
-use app\controllers\controller;
+use app\controllers\Controller;
 $controller = new Controller();
 
 

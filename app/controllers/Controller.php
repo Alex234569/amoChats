@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
-use app\models\validate\validate;
+use app\models\validate\Validate;
 use app\models\getFromDB\Getter;
-use app\models\putInDB\dbPutter;
+use app\models\putInDB\Putter;
 use app\views\Error;
 use app\views\GetInfo;
 use app\views\PutInfo;
@@ -56,7 +56,7 @@ class Controller
 
     public function putInDB(array $data): array
     {
-        $dbPutter = new DBPutter();
+        $dbPutter = new Putter();
         return $dbPutter->mainPutter($data);
     }
 
