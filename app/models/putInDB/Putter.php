@@ -26,15 +26,11 @@ class Putter
     public function mainPutter(array $data): array
     {
         $this->putterEntity->separator($data);
-    echo "<pre>";
-    print_r($this->putterEntity);
 
         $this->tegSearcher();
-
         $question = $this->putterEntity->getQuestion();
         $answer = $this->putterEntity->getAnswer();
         $this->mainSearcher($question, $answer);
-
 
         return $this->putterEntity->getAll();
     }
@@ -100,7 +96,7 @@ class Putter
             $one['tag'] = $tag12;
             $tagsThatDBAlreadyHas[] = $one;
         }
-        print_r($tagsThatDBAlreadyHas);
+        $this->mysqli_stmt->close();
 
     //  Сравнение имеющихся тегов в БД с пришедшими из запроса
         $tagsDBFiltered = [];
@@ -122,8 +118,6 @@ class Putter
      */
     private function tegAdjuster(array $missedTags): void
     {
-        print_r($missedTags);
-
 // todo:  bind_param() with a dynamic number of arguments
 
         $query = 'INSERT INTO tegs (teg) VALUES (?)';
@@ -134,6 +128,7 @@ class Putter
             $this->mysqli_stmt->bind_param('s', $tag);
             $this->mysqli_stmt->execute();
         }
+        $this->mysqli_stmt->close();
 
         //  вызов функции чекера
         $this->tegSearcher();
@@ -158,13 +153,7 @@ class Putter
         $this->mysqli_stmt->execute();
         $this->mysqli_stmt->bind_result( $idMain, $question, $answer, $url, $date);
         $this->mysqli_stmt->fetch();
-
-        print_r($idMain);
-        var_dump($stopper);
-
-
-
-
+        $this->mysqli_stmt->close();
 
         if (empty($idMain)) {                                                                     //  если пары нет, то $response пустой
             $this->mainAdjuster($question, $answer);                                                //      и тогда вызываем f() для добавления пары
@@ -192,12 +181,12 @@ class Putter
         if (empty($date)) {
             $date = NULL;
         }
-
         $query = "INSERT INTO main (question, answer, url, date) VALUES (?, ?, ?, ?)";
 
         $this->mysqli_stmt = $this->mysqli->prepare($query);
         $this->mysqli_stmt->bind_param('ssss', $question, $answer, $url, $date);
         $this->mysqli_stmt->execute();
+        $this->mysqli_stmt->close();
 
         $this->mainSearcher($question, $answer, 'added');                                           //  вызыв f() прородителя
     }
@@ -211,25 +200,10 @@ class Putter
         $idMain = $this->putterEntity->getId();                                      //  вытягивание из хранилища mainId и tegId
         $tagId = $this->putterEntity->getTagsFromDB();
 
-        print_r($idMain);
-        print_r($tagId);
-
         $query = "INSERT INTO compound (id_main, id_teg) VALUES (?, ?)";
-
-    //    $stmt = $this->mysqli->prepare($query);
-        if (!($stmt = $this->mysqli->prepare($query))) {
-            echo "Не удалось подготовить запрос: (" . $this->mysqli->errno . ") " . $this->mysqli->error;
-        }
-
-
-
+        $this->mysqli_stmt = $this->mysqli->prepare($query);
         foreach ($tagId as $tag) {
-        //    $this->mysqli_stmt->bind_param('ss', $idMain, $tag['idTag']);
-            if (!$stmt->bind_param('ss', $idMain, $tag['idTag'])) {
-                echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
-            }
-
-
+            $this->mysqli_stmt->bind_param('ss', $idMain, $tag['idTag']);
             $this->mysqli_stmt->execute();
         }
 
