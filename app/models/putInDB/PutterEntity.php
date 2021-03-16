@@ -56,9 +56,9 @@ class PutterEntity
 
 //  Set
 
-    public function setId(array $arr): void
+    public function setId(int $arr): void
     {
-        $this->id = $arr['0']['id_main'];
+        $this->id = $arr;
     }
 
     /**
@@ -79,26 +79,41 @@ class PutterEntity
 
 //  Get
 
+    /**
+     * @return int|null
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getQuestion()
     {
         return $this->question;
     }
 
+    /**
+     * @return string
+     */
     public function getAnswer(): string
     {
         return $this->answer;
     }
 
+    /**
+     * @return string|null
+     */
     public function getUrl(): ?string
     {
         return $this->url;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDate(): ?string
     {
         return $this->date;

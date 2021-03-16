@@ -30,11 +30,11 @@ class Putter
     print_r($this->putterEntity);
 
         $this->tegSearcher();
-    /*
+
         $question = $this->putterEntity->getQuestion();
         $answer = $this->putterEntity->getAnswer();
         $this->mainSearcher($question, $answer);
-*/
+
 
         return $this->putterEntity->getAll();
     }
@@ -124,21 +124,19 @@ class Putter
     {
         print_r($missedTags);
 
+// todo:  bind_param() with a dynamic number of arguments
 
+        $query = 'INSERT INTO tegs (teg) VALUES (?)';
+        $this->mysqli_stmt = $this->mysqli->prepare($query);
 
-        $query = 'INSERT INTO main (teg) VALUES (?)';
-        $this->mysqli_stmt->bind_param('s', $missedTags);
-
-
-
-        $queryDirty = "INSERT INTO `tegs` (`id_teg`, `teg`) VALUES ";  //  подготовка запроса
         foreach ($missedTags as $tag) {
-            $queryDirty .="(NULL, '$tag'), ";
+            print_r($tag);
+            $this->mysqli_stmt->bind_param('s', $tag);
+            $this->mysqli_stmt->execute();
         }
-        $query = mb_substr($queryDirty, -0, -2);
 
-        $this->clientAdd($query);                                      //  запрос на добавление
-        $this->tegSearcher();                                           //  вызов f() прородителя
+        //  вызов функции чекера
+        $this->tegSearcher();
     }
 
 
@@ -146,22 +144,35 @@ class Putter
  * Пара question & answer являются уникальными значениями в БД
  * Проверяем пришедшую пару на предмет существования в БД, при необходимости - добавляем. 
  * Осуществлена механика рекурсива с необязательным параметром:
- * @param question - вопрос из запроса
- * @param answer   - ответ из запроса
- * @param stopper  - необязательный параметр: приходит из функции mainAdjuster() в случае добавления новой уникальной пары в БД
+ * @param string question - вопрос из запроса
+ * @param string answer   - ответ из запроса
+ * @param ?Null stopper  - необязательный параметр: приходит из функции mainAdjuster() в случае добавления новой уникальной пары в БД
  */
-    private function mainSearcher($question, $answer, $stopper = NULL): void 
+    private function mainSearcher(string $question, string $answer, $stopper = NULL): void
     {
-        $query = "SELECT * FROM main WHERE question = '$question' AND answer = '$answer'";         //  в начале проверка на предмет уже существующей пары вопрос/ответ
-        $response = $this->clientGet($query);
-        
-        if (empty($response)) {                                                                     //  если пары нет, то $response пустой
+
+
+        $query = "SELECT main.id_main, main.question, main.answer, main.url, main.date FROM main WHERE question = ? AND answer = ?";
+        $this->mysqli_stmt = $this->mysqli->prepare($query);
+        $this->mysqli_stmt->bind_param('ss', $question, $answer);
+        $this->mysqli_stmt->execute();
+        $this->mysqli_stmt->bind_result( $idMain, $question, $answer, $url, $date);
+        $this->mysqli_stmt->fetch();
+
+        print_r($idMain);
+        var_dump($stopper);
+
+
+
+
+
+        if (empty($idMain)) {                                                                     //  если пары нет, то $response пустой
             $this->mainAdjuster($question, $answer);                                                //      и тогда вызываем f() для добавления пары
         } elseif ($stopper !== NULL) {                                                              //  в случае если данная f() вызывается из mainAdjuster(), то выполняется это условие
-            $this->putterEntity->setId($response);                                               //      запись main_id в хранилище
+            $this->putterEntity->setId($idMain);                                               //      запись main_id в хранилище
             $this->compoundAdjuster();                                                              //      и вызываем f() связыватель teg & main
         } elseif ($stopper == NULL) {
-            $this->putterEntity->setId($response);                                               //  если пришла пара вопрос/ответ из главной f(), тогда только записываем main_id
+            $this->putterEntity->setId($idMain);                                               //  если пришла пара вопрос/ответ из главной f(), тогда только записываем main_id
         }
     }
 
@@ -175,12 +186,19 @@ class Putter
         $url = $this->putterEntity->getUrl();                                                    //  вытягивание из хранилища доп необязательной инфы
         $date = $this->putterEntity->getDate();
 
-        $query = "INSERT INTO `main` (`id_main`, `question`, `answer`, `url`, `date`) VALUES (NULL, '$question', '$answer'";
-        !empty($url) ? ($query .= ", '$url'") : ($query .= ", NULL");                             //  что бы не менять тело запроса проще вставить NULL
-        !empty($date) ? ($query .= ", '$date'") : ($query .= ", NULL");
-        $query .= ")";
+        if (empty($url)) {
+            $url = NULL;
+        }
+        if (empty($date)) {
+            $date = NULL;
+        }
 
-        $this->clientAdd($query);                                                                  //  осуществляем запрос на добавление строки
+        $query = "INSERT INTO main (question, answer, url, date) VALUES (?, ?, ?, ?)";
+
+        $this->mysqli_stmt = $this->mysqli->prepare($query);
+        $this->mysqli_stmt->bind_param('ssss', $question, $answer, $url, $date);
+        $this->mysqli_stmt->execute();
+
         $this->mainSearcher($question, $answer, 'added');                                           //  вызыв f() прородителя
     }
 
@@ -190,16 +208,30 @@ class Putter
  */
     private function compoundAdjuster(): void
     {
-        $mainId = $this->putterEntity->getId();                                      //  вытягивание из хранилища mainId и tegId
-        $tegId = $this->putterEntity->getTagsFromDB();
+        $idMain = $this->putterEntity->getId();                                      //  вытягивание из хранилища mainId и tegId
+        $tagId = $this->putterEntity->getTagsFromDB();
 
-        $queryDirty = 'INSERT INTO `compound` (`id_main`, `id_teg`) VALUES ';          //  подготовка запроса
-        foreach($tegId as $tag) {
-            $oneTagId = $tag['id_teg'];
-            $queryDirty .= "('$mainId', '$oneTagId'), ";
+        print_r($idMain);
+        print_r($tagId);
+
+        $query = "INSERT INTO compound (id_main, id_teg) VALUES (?, ?)";
+
+    //    $stmt = $this->mysqli->prepare($query);
+        if (!($stmt = $this->mysqli->prepare($query))) {
+            echo "Не удалось подготовить запрос: (" . $this->mysqli->errno . ") " . $this->mysqli->error;
         }
-        $query = mb_substr($queryDirty, -0, -2);
 
-        $this->clientAdd($query);                                                      //  запрос
+
+
+        foreach ($tagId as $tag) {
+        //    $this->mysqli_stmt->bind_param('ss', $idMain, $tag['idTag']);
+            if (!$stmt->bind_param('ss', $idMain, $tag['idTag'])) {
+                echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
+            }
+
+
+            $this->mysqli_stmt->execute();
+        }
+
     }
 } 
