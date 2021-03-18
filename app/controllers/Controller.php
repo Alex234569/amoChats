@@ -23,7 +23,10 @@ class Controller
         $this->validate = new Validate;
     }
 
-
+    /**
+     * На данный момент это главная функция, вызываемся при заполнении форм
+     * @param array $data массив входящих данных
+     */
     public function mainController(array $data): void 
     {
         if (!empty($data)) {
@@ -45,7 +48,11 @@ class Controller
     }
 
 
-
+    /**
+     * Вызыв модели для получения инфорамции из БД по тегам
+     * @param array $data
+     * @return array
+     */
     public function getFromDB(array $data): array
     {
         $dbGetter = new Getter();
@@ -53,7 +60,11 @@ class Controller
     }
 
 
-
+    /**
+     * Вызыв модели для добавления инфорамции в БД с тегами
+     * @param array $data
+     * @return array
+     */
     public function putInDB(array $data): array
     {
         $dbPutter = new Putter();

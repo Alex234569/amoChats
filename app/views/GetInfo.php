@@ -3,7 +3,10 @@
 
 namespace app\views;
 
-
+/**
+ * Class GetInfo, отвечает за вывод информации, если она была найдена по тегам в БД
+ * @package app\views
+ */
 class GetInfo
 {
     public static function getInfo(array $data): void

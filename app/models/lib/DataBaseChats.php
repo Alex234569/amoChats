@@ -22,6 +22,7 @@ class DataBaseChats
     }
 
     /**
+     * Получение объекста \Mysqli
      * @return false|\mysqli
      */
     public function getMysqli()

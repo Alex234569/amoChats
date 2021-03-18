@@ -5,8 +5,7 @@ namespace app\models\getFromDB;
 use app\models\lib\DataBaseChats;
 
 /**
- * Класс для получения информации по тегам
- * Class Getter
+ * Class Getter для получения информации по тегам
  * @package app\models\getFromDB
  */
 class Getter

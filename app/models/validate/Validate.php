@@ -20,8 +20,9 @@ class Validate
     private ?array $addTagsArray = NULL;
 
     /**
+     * Основная функция валидатора, проверка действия и вызов других функций
      * @param array $data
-     * @return array на выходе обычный массив данных с ключем для определения действий
+     * @return array
      */
     public function validator(array $data): array
     {
@@ -96,8 +97,10 @@ class Validate
             $this->error = 'Empty query to add (/inc/Validate.php)';
         }
     }
-    
 
+    /**
+     * @return array
+     */
     private function getError(): array
     {
         $data = [];
@@ -106,7 +109,9 @@ class Validate
         return $data;
     }
 
-
+    /**
+     * @return array данные для запроса к БД по тегам
+     */
     private function getGetInfo(): array
     {
         $data = [];
@@ -116,7 +121,9 @@ class Validate
         return $data;
     }
 
-
+    /**
+     * @return array дагнные для добалвения в БД с тегами
+     */
     private function getAddInfo(): array
     {
         $data = [];

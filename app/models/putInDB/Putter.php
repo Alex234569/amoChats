@@ -4,6 +4,10 @@ namespace app\models\putInDB;
 
 use app\models\lib\DataBaseChats;
 
+/**
+ * Class Putter для добалвения информации с тегами
+ * @package app\models\putInDB
+ */
 class Putter
 {
     private DataBaseChats $dataBaseChats;
@@ -141,7 +145,7 @@ class Putter
  * Осуществлена механика рекурсива с необязательным параметром:
  * @param string question - вопрос из запроса
  * @param string answer   - ответ из запроса
- * @param ?Null stopper  - необязательный параметр: приходит из функции mainAdjuster() в случае добавления новой уникальной пары в БД
+ * @param ?Null stopper   - необязательный параметр: приходит из функции mainAdjuster() в случае добавления новой уникальной пары в БД
  */
     private function mainSearcher(string $question, string $answer, $stopper = NULL): void
     {
@@ -155,13 +159,13 @@ class Putter
         $this->mysqli_stmt->fetch();
         $this->mysqli_stmt->close();
 
-        if (empty($idMain)) {                                                                     //  если пары нет, то $response пустой
+        if (empty($idMain)) {                                                                  //  если пары нет, то $response пустой
             $this->mainAdjuster($question, $answer);                                                //      и тогда вызываем f() для добавления пары
         } elseif ($stopper !== NULL) {                                                              //  в случае если данная f() вызывается из mainAdjuster(), то выполняется это условие
             $this->putterEntity->setId($idMain);                                               //      запись main_id в хранилище
             $this->compoundAdjuster();                                                              //      и вызываем f() связыватель teg & main
-        } elseif ($stopper == NULL) {
-            $this->putterEntity->setId($idMain);                                               //  если пришла пара вопрос/ответ из главной f(), тогда только записываем main_id
+        } elseif ($stopper == NULL) {                                                          //   если пришла пара вопрос/ответ из главной f(), и есть уже такая пара,
+            $this->putterEntity->setId($idMain);                                                    //   то записываем main_id
         }
     }
 
@@ -188,7 +192,7 @@ class Putter
         $this->mysqli_stmt->execute();
         $this->mysqli_stmt->close();
 
-        $this->mainSearcher($question, $answer, 'added');                                           //  вызыв f() прородителя
+        $this->mainSearcher($question, $answer, 'added');               //  рекурсив
     }
 
 
@@ -197,7 +201,7 @@ class Putter
  */
     private function compoundAdjuster(): void
     {
-        $idMain = $this->putterEntity->getId();                                      //  вытягивание из хранилища mainId и tegId
+        $idMain = $this->putterEntity->getId();
         $tagId = $this->putterEntity->getTagsFromDB();
 
         $query = "INSERT INTO compound (id_main, id_teg) VALUES (?, ?)";

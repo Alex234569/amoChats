@@ -3,7 +3,10 @@
 
 namespace app\views;
 
-
+/**
+ * Class PutInfo, отвечает за уведомление о успешном добалвении информации в БД с тегами
+ * @package app\views
+ */
 class PutInfo
 {
     public static function putInfo(array $data): void

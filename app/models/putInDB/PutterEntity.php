@@ -2,6 +2,11 @@
 
 namespace app\models\putInDB;
 
+/**
+ * Хранитель для добалвения информации с тегами
+ * Class PutterEntity
+ * @package app\models\putInDB
+ */
 class PutterEntity
 {
     private bool $stop = false;
@@ -56,13 +61,16 @@ class PutterEntity
 
 //  Set
 
+    /** Установка id добалвенной пары вопрос+ответ в БД
+     * @param int $arr
+     */
     public function setId(int $arr): void
     {
         $this->id = $arr;
     }
 
     /**
-     * Сохранение массива тегов с их id
+     * Сохранение массива тегов с их id из ЬД
      * @param array $tags
      */
     public function setTagsWithId(array $tags): void
@@ -70,6 +78,9 @@ class PutterEntity
         $this->tagsWithIdArray = $tags;
     }
 
+    /**
+     *
+     */
     public function setResultEmpty(): void
     {
         $this->stop = true;
@@ -128,6 +139,9 @@ class PutterEntity
         return $this->addTagsArray;
     }
 
+    /**
+     * @return array
+     */
     public function getTagsFromDB(): array
     {
         return $this->tagsWithIdArray;
