@@ -27,17 +27,16 @@
 
 .leftColomn {
     background: yellow;
-    width: calc(15% - 20px);
+    width: 15%;
     height: inherit;
 
-    padding-right: 20px;
     position: inherit;
 }
 
 
 .rightColomn{
     background: deepskyblue;
-    width: calc(15% - 20px);
+    width: 15%;
     height: inherit;
 
     padding-left: 20px;
@@ -64,8 +63,18 @@
     background: whitesmoke;
     border-top: solid 1px black;
 }
-
-
+.link {
+    width: 100%;
+    height: 40px;
+    background: #fc0;
+    border-bottom: solid 2px grey;
+}
+.link a {
+    display: block;
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
+}
 .divToSite{
     margin-top: 30px;
 }
@@ -92,6 +101,9 @@
 .resultUnderInfo{
     background: whitesmoke;
     padding-top: 5px;
+}
+h2{
+    text-align: center;
 }
 #textareaGetInfo{
     width: calc(100% - 6px);
@@ -126,6 +138,17 @@
 }
 
 
+/* блоки вывода для Jira*/
+.errorCodeBlock{
+    margin-left: 10px;
+    margin-top: 30px;
+}
+.littleHeader{
+    font-weight: bold;
+}
+.littleResult{
+    margin-left: 9px;
+}
 
 
 
