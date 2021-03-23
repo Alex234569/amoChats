@@ -11,10 +11,6 @@
 <div class="header">
 </div>
 
-<?php
-
-?>
-
 <div class="main">
     <div class="leftColomn">
         <div class="link"><a href="index.php">Main</a></div>

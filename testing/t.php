@@ -1,10 +1,24 @@
 <?php
 
-$a = [1, 2, 3, 4];
 
-$res = ['r', 'r', 'r', 'r', 'r', 'r'];
-$b = array_replace ($a, $res);
+class Foo
+{
+    public static function fo()
+    {
+        echo '123';
+    }
+}
+
+class Boo
+{
+    public static function bo($data)
+    {
+        var_dump($data);
+    }
+}
 
 
-print_r($b);
+Boo::bo(Foo::fo());
+
+//Foo::fo();
 
