@@ -30,7 +30,7 @@ class CenterMain
                 <input type='submit' value='addInfo' form='addInfo' name='button'>
             </div>
         <?php
-        $controller = new Controller();
-        $controller->mainController($_POST);
+    //    $controller = new Controller();
+    //    $controller->mainController($_POST);
     }
 }

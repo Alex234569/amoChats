@@ -14,7 +14,7 @@ use app\views\PutInfo;
  * Class Controller
  * @package app\controllers
  */
-class Controller
+class MainController
 {
     private Validate $validate;
 
