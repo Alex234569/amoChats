@@ -11,24 +11,21 @@
 <div class="header">
 </div>
 
-<div class="main">
-    <div class="leftColomn">
+
+    <div class="leftColumn">
         <div class="link"><a href="index.php">Main</a></div>
-        <div class="link"><a href="index.php?page=jira">Jira</a></div>
-        <div class="link"><a href="index.php?page=pact">Pact</a></div>
-        <div class="link"><a href="index.php?page=errorCode">Errors</a></div>
+        <div class="link"><a href="index.php?page=Jira">Jira</a></div>
+        <div class="link"><a href="index.php?page=Pact">Pact</a></div>
+        <div class="link"><a href="index.php?page=ErrorCode">Errors</a></div>
     </div>
 
     <div class="center">
-        <?php
-            app\core\Route::buildRoute($_GET);
-        ?>
+
     </div>
 
-    <div class="rightColomn">
+    <div class="rightColumn">
         right
     </div>
-</div>
 
 </body>
 </html>

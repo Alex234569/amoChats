@@ -27,7 +27,7 @@ class MainController
      * На данный момент это главная функция, вызываемся при заполнении форм
      * @param array $data массив входящих данных
      */
-    public function mainController(array $data): void 
+    public function mainController(array $data): void
     {
         if (!empty($data)) {
             $validate = $this->validate->validator($data);

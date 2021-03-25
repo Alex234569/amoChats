@@ -3,30 +3,30 @@
 namespace app\core;
 
 use app\controllers\MainController;
-use app\core;
 
+/**
+ * Отвечает за подключение всех div, организует инициализацию бэка
+ * Class Controller
+ * @package app\core
+ */
 class Controller
 {
-    private View $view;
-    private Route $route;
     private MainController $mainController;
 
     public function __construct()
     {
-    //    $this->view = new View();
-    //    $this->route = new Route();
         $this->mainController = new MainController();
+        require_once DIR . "/app/views/Template.php";
+        Route::buildRoute($_GET);
     }
 
-    public function start()
+    /**
+     * Подключение бэка, если есть POST запрос из форм
+     */
+    public function start(): void
     {
-        require_once DIR . "/app/views/Template.php";
-        print_r($_POST);
-        print_r($_GET);
         if (!empty($_POST)){
             $this->mainController->mainController($_POST);
-        } else {
-            echo 'nope';
         }
     }
 

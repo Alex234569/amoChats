@@ -1,20 +1,24 @@
 <?php
 namespace app\core;
 
-use app\controllers\Controller;
-use app\views\CenterMain;
-use app\views\Error404;
-use app\views\ErrorCode;
+use app\controllers\MainController;
 
-
+/**
+ * Class Route, отвечает за подключение страниц
+ * @package app\core
+ */
 class Route
 {
-    public static function buildRoute($path): void
+    /**
+     * Подключаем нужные div в зависимости от GET парамтера, получаемого с кнопок
+     * @param array $get
+     */
+    public static function buildRoute(array $get): void
     {
-        if (!empty($path)) {
-            switch ($path['page']) {
-                case 'jira':
-                    $controller = new Controller();
+        if (!empty($get)) {
+            switch ($get['page']) {
+                case 'Jira':
+                    $controller = new MainController();
                     $data['getInfo'] = '-/';
                     $data['button'] = 'getInfo';
                     $controller->mainController($data);
@@ -22,14 +26,14 @@ class Route
                 case 'pact':
                     echo 'Nothing here';
                     break;
-                case 'errorCode':
-                    ErrorCode::codes();
+                case 'ErrorCode':
+                    require_once DIR . '/app/views/ErrorCode.php';
                     break;
                 default:
-                    Error404::noPage();
+                    require_once DIR . '/app/views/Error404.php';
             }
         } else {
-            CenterMain::main();
+            require_once DIR . '/app/views/CenterMain.php';
         }
     }
 }

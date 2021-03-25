@@ -1,14 +1,5 @@
-<?php
 
-
-namespace app\views;
-
-
-class ErrorCode
-{
-    public static function codes()
-    {
-    ?>
+    <div class="center">
         <h2>Сведения о ошибках из кода системы</h2>
 
         <div class="errorCodeBlock">
@@ -287,6 +278,4 @@ class ErrorCode
                 EXPORT_RIGHTS_DENIED = 350;<br />
             </div>
         </div>
-        <?php
-    }
-}
+    </div>

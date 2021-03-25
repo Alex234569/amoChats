@@ -12,8 +12,10 @@ class Error
 {
     public static function error(string $data): void
     {
-        ?><div class="errorToStie">
-        <?='Error: ' .$data?>
+        ?><div class="center">
+            <div class="errorToStie">
+                <?='Error: ' .$data?>
+            </div>
         </div><?php
     }
 }
