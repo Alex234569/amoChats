@@ -8,19 +8,11 @@
 
 <body>
 
-<div class="header">
-</div>
-
-
     <div class="leftColumn">
         <div class="link"><a href="index.php">Main</a></div>
         <div class="link"><a href="index.php?page=Jira">Jira</a></div>
         <div class="link"><a href="index.php?page=Pact">Pact</a></div>
         <div class="link"><a href="index.php?page=ErrorCode">Errors</a></div>
-    </div>
-
-    <div class="center">
-
     </div>
 
     <div class="rightColumn">

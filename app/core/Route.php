@@ -23,9 +23,6 @@ class Route
                     $data['button'] = 'getInfo';
                     $controller->mainController($data);
                     break;
-                case 'pact':
-                    echo 'Nothing here';
-                    break;
                 case 'ErrorCode':
                     require_once DIR . '/app/views/ErrorCode.php';
                     break;
