@@ -1,24 +1,14 @@
 <?php
 
 
-class Foo
-{
-    public static function fo()
-    {
-        echo '123';
-    }
-}
-
-class Boo
-{
-    public static function bo($data)
-    {
-        var_dump($data);
-    }
-}
+$a = [
+    1 => 1,
+    2 => 2,
+    3 => 3
+];
 
 
-Boo::bo(Foo::fo());
+$b = $a['4'];
 
-//Foo::fo();
+echo $b;
 
