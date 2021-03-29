@@ -28,12 +28,12 @@ class PutterEntity
      */
     public function separator(array $data): void
     {
-        $this->question = $data['addQuestion'];
-        $this->answer = $data['addAnswer'];
-        $this->url = isset($data['addUrl']) ? $data['addUrl'] : NULL;
-        $this->date = isset($data['addDate']) ? $data['addDate'] : NULL;
-        $this->addTagsString = $data['addTagsString'];
-        $this->addTagsArray = $data['addTagsArray'];
+        $this->question = $data['question'];
+        $this->answer = $data['answer'];
+        $this->url = $data['url'];
+        $this->date = $data['date'];
+        $this->addTagsString = $data['tagString'];
+        $this->addTagsArray = $data['tagArr'];
     }
 
 /**

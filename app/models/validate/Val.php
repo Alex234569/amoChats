@@ -6,64 +6,59 @@ namespace app\models\validate;
 class Val
 {
     private string $button;
-    private ?array $tagArr;
-    private ?string $tagString;
-    private ?string $question;
-    private ?string $answer;
-    private ?string $url;
+    private ?array $tagArr = NULL;
+    private ?string $tagString = NULL;
+    private ?string $question = NULL;
+    private ?string $answer = NULL;
+    private ?string $url = NULL;
 
     private ?string $date;
     private bool $stop = false;
     private ?string $error = NULL;
 
 
-    public function __construct(
-        string $button,
-        string $tagString = null,
-        string $question = null,
-        string $answer = null,
-        string $url = null,
-        string $date = null
-    )
+    public function __construct(string $button)
     {
-        $this->button       = $button;
-        $this->tagString    = $tagString;
-        $this->question     = $question;
-        $this->answer       = $answer;
-        $this->url          = $url;
-        $this->date         = $date;
+        $this->button = $button;
     }
 
     /**
      * Чистим строку тегов, записываем ее в виде массива и строки
+     * @param string $tag
+     * @return $this
      */
-    public function setTag(): void
+    public function setTag(string $tag): self
     {
-        $tagArr = explode(" ", preg_replace('/\s\s+/', ' ', trim($this->tagString)));          //  нормализация тегов: без пробелов и повторов
+        $tagArr = explode(" ", preg_replace('/\s\s+/', ' ', trim($tag)));
         $tagArr = array_values(array_unique($tagArr, SORT_STRING));
         $tagString = implode(' ', $tagArr);
         $this->tagArr = $tagArr;
         $this->tagString = $tagString;
+        return $this;
     }
 
-    public function setQuestion(): void
+    public function setQuestion($question): self
     {
-        $this->question = trim($this->question);
+        $this->question = trim($question);
+        return $this;
     }
 
-    public function setAnswer(): void
+    public function setAnswer($answer): self
     {
-        $this->answer = trim($this->answer);
+        $this->answer = trim($answer);
+        return $this;
     }
 
-    public function setUrl(): void
+    public function setUrl($url): self
     {
-
+        $this->url = $url;
+        return $this;
     }
 
-    public function setDate(): void
+    public function setDate($date): self
     {
-
+        $this->date = $date;
+        return $this;
     }
 
     public function getAll(): array

@@ -12,13 +12,13 @@ use app\controllers\ValidateController;
  */
 class Controller
 {
-    private MainController $mainController;
     private ValidateController $validateController;
+    private MainController $mainController;
 
     public function __construct()
     {
-        $this->mainController = new MainController();
         $this->validateController = new ValidateController();
+        $this->mainController = new MainController();
         require_once DIR . "/app/views/Template.php";
         Route::buildRoute($_GET);
     }

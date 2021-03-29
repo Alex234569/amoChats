@@ -19,51 +19,27 @@ class ValidateController
     {
     }
 
-    public function main(array $data)
+    public function main(array $data): array
     {
-        switch ($data['button'])
-        {
-            case 'getInfo':
-                return $this->getInfo($data);
-            case 'addInfo':
-                return $this->putInfo($data);
-            case 'simulate':
-                return '';
+        if ($data['button'] == 'getInfo' || $data['button'] == 'addInfo'){
+            return $this->putInfo($data);
         }
     }
 
-    private function getInfo(array $data): array
+    /**
+     * @param array $data
+     * @return array
+     */
+    private function putInfo(array $data): array
     {
-        $validate = new Val($data['button'], $data['tag']);
-        $validate->setTag();
-        return $validate->getAll();
-    }
-
-    private function putInfo(array $data)
-    {
-        echo "<div class='center'>";
-        echo "<pre>";
-        print_r($data);
-        $validate = new Val(
-            $data['button'],
-            $data['tag'],
-            $data['question'],
-            $data['answer'],
-            isset ($data['url']) ? $data['url']: null,
-            isset ($data['date']) ? $data['url']: null
-        );
+        $validate = new Val($data['button']);
         $validate
-            ->setTag()
-            ->question()
-            ->answer()
-            ->url()
-            ->date();
+            ->setTag($data['tag'])
+            ->setQuestion(isset ($data['question']) ? $data['question'] : NULL)
+            ->setAnswer(isset ($data['answer']) ? $data['answer'] : NULL)
+            ->setUrl(isset ($data['url']) ? $data['url'] : NULL)
+            ->setDate(isset ($data['date']) ? $data['url'] : NULL);
 
-        print_r($validate);
-    }
-
-    private function simulate()
-    {
-
+        return $validate->getAll();
     }
 }
