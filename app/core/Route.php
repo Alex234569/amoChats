@@ -19,7 +19,8 @@ class Route
             switch ($get['page']) {
                 case 'Jira':
                     $controller = new MainController();
-                    $data['getInfo'] = '-/';
+                    $data['tagArr'] = [0 => '-/'];
+                    $data['tagString'] = '-/';
                     $data['button'] = 'getInfo';
                     $controller->mainController($data);
                     break;

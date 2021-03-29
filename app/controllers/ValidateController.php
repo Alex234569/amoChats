@@ -14,54 +14,52 @@ use app\views\Error;
 
 class ValidateController
 {
-    private Validate $validate;
 
     public function __construct()
     {
-        $this->validate = new Validate();
     }
 
     public function main(array $data)
     {
-    //    print_r($data);
-
-
         switch ($data['button'])
         {
             case 'getInfo':
-                $this->getInfo($data);
+                return $this->getInfo($data);
             case 'addInfo':
-                $this->putInfo($data);
+                return $this->putInfo($data);
             case 'simulate':
-
-            default:
-                $this->stop = true;
-                $this->error = 'No such case to validate (/inc/Validate.php)';
-
-           //     return $this->getError();
+                return '';
         }
-
-
-
     }
 
-    private function getInfo(array $data)
+    private function getInfo(array $data): array
     {
-        echo "<div class='center'>";
-        echo "<pre>";
-        print_r($data);
-    //    $getter = new Getter();
-    //    $getter->main($data);
-        $g = new Val($data);
-        print_r($g);
-
+        $validate = new Val($data['button'], $data['tag']);
+        $validate->setTag();
+        return $validate->getAll();
     }
 
     private function putInfo(array $data)
     {
+        echo "<div class='center'>";
+        echo "<pre>";
         print_r($data);
-        $putter = new Putter();
+        $validate = new Val(
+            $data['button'],
+            $data['tag'],
+            $data['question'],
+            $data['answer'],
+            isset ($data['url']) ? $data['url']: null,
+            isset ($data['date']) ? $data['url']: null
+        );
+        $validate
+            ->setTag()
+            ->question()
+            ->answer()
+            ->url()
+            ->date();
 
+        print_r($validate);
     }
 
     private function simulate()

@@ -23,8 +23,8 @@ class GetterEntity
      */
     public function separator(array $data): void
     {
-        $this->getTagsString = $data['getTagsString'];
-        $this->getTagsArray = $data['getTagsArray'];
+        $this->getTagsString = $data['tagString'];
+        $this->getTagsArray = $data['tagArr'];
     }
 
     /**

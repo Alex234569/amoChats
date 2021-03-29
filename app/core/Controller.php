@@ -29,8 +29,8 @@ class Controller
     public function start(): void
     {
         if (!empty($_POST)){
-            $this->validateController->main($_POST);
-        //    $this->mainController->mainController($_POST);
+            $dataAfterValidate = $this->validateController->main($_POST);
+            $this->mainController->mainController($dataAfterValidate);
         }
     }
 
