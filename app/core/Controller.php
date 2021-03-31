@@ -4,6 +4,7 @@ namespace app\core;
 
 use app\controllers\MainController;
 use app\controllers\ValidateController;
+use app\views\Error;
 
 /**
  * Отвечает за подключение всех div, организует инициализацию бэка
@@ -30,7 +31,10 @@ class Controller
     {
         if (!empty($_POST)){
             $dataAfterValidate = $this->validateController->main($_POST);
-            $this->mainController->mainController($dataAfterValidate);
+            print_r($dataAfterValidate);
+            ($dataAfterValidate['stop']) ? Error::error($dataAfterValidate['error']) :
+                        $this->mainController->mainController($dataAfterValidate);
+
         }
     }
 

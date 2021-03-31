@@ -29,22 +29,15 @@ class MainController
      */
     public function mainController(array $data): void
     {
-    /*    if (!empty($data)) {
-            $validate = $this->validate->validator($data);
-            if (isset($validate['error'])) {
-                Error::error($validate['error']);
-            } else {
-        */        switch ($data['button']) {
-                    case 'getInfo':
-                        $getInfoRes = $this->getFromDB($data);
-                        isset($getInfoRes['stop']) ? Error::error($getInfoRes['error']) : GetInfo::getInfo($getInfoRes);
-                        break;
-                    case 'addInfo':
-                        $putInfoRes = $this->putInDB($data);
-                        isset($putInfoRes['stop']) ? Error::error($putInfoRes['error']) : PutInfo::putInfo($putInfoRes);
-                }
-      //      }
-      //  }
+        switch ($data['button']) {
+            case 'getInfo':
+                $getInfoRes = $this->getFromDB($data);
+                isset($getInfoRes['stop']) ? Error::error($getInfoRes['error']) : GetInfo::getInfo($getInfoRes);
+                break;
+            case 'addInfo':
+                $putInfoRes = $this->putInDB($data);
+                isset($putInfoRes['stop']) ? Error::error($putInfoRes['error']) : PutInfo::putInfo($putInfoRes);
+        }
     }
 
 

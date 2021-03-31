@@ -2,7 +2,11 @@
 
 namespace app\models\validate;
 
-
+/**
+ * Валидация и нормализация входящей информации
+ * Class Val
+ * @package app\models\validate
+ */
 class Val
 {
     private string $button;
@@ -37,30 +41,56 @@ class Val
         return $this;
     }
 
-    public function setQuestion($question): self
+    /**
+     * @param ?string $question
+     * @return $this
+     */
+    public function setQuestion(?string $question): self
     {
         $this->question = trim($question);
         return $this;
     }
 
-    public function setAnswer($answer): self
+    /**
+     * @param ?string $answer
+     * @return $this
+     */
+    public function setAnswer(?string $answer): self
     {
         $this->answer = trim($answer);
         return $this;
     }
 
-    public function setUrl($url): self
+    /**
+     * @param ?string $url
+     * @return $this
+     */
+    public function setUrl(?string $url): self
     {
-        $this->url = $url;
+        $url = trim($url);
+        if ((filter_var($url, FILTER_VALIDATE_URL) !=false) || (empty($url) == true)) {
+            $this->url = $url;
+        } else {
+            $this->stop = true;
+            $this->error = 'Wrong url';
+        }
         return $this;
     }
 
-    public function setDate($date): self
+    /**
+     * @param ?string $date
+     * @return $this
+     */
+    public function setDate(?string $date): self
     {
         $this->date = $date;
         return $this;
     }
 
+    /**
+     * Вывод всех объектов класса
+     * @return array
+     */
     public function getAll(): array
     {
         $data = [];

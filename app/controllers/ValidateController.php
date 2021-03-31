@@ -19,6 +19,11 @@ class ValidateController
     {
     }
 
+    /**
+     * Основной контроллер валидаторов
+     * @param array $data
+     * @return array
+     */
     public function main(array $data): array
     {
         if ($data['button'] == 'getInfo' || $data['button'] == 'addInfo'){
@@ -27,6 +32,7 @@ class ValidateController
     }
 
     /**
+     * Обработчкик поступающей информации из форм
      * @param array $data
      * @return array
      */
@@ -38,7 +44,7 @@ class ValidateController
             ->setQuestion(isset ($data['question']) ? $data['question'] : NULL)
             ->setAnswer(isset ($data['answer']) ? $data['answer'] : NULL)
             ->setUrl(isset ($data['url']) ? $data['url'] : NULL)
-            ->setDate(isset ($data['date']) ? $data['url'] : NULL);
+            ->setDate(isset ($data['date']) ? $data['date'] : NULL);
 
         return $validate->getAll();
     }
