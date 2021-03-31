@@ -13,7 +13,7 @@ class Error
     public static function error(string $data): void
     {
         ?><div class="center">
-            <div class="errorToStie">
+            <div class="errorToSite">
                 <?='Error: ' .$data?>
             </div>
         </div><?php

@@ -31,10 +31,8 @@ class Controller
     {
         if (!empty($_POST)){
             $dataAfterValidate = $this->validateController->main($_POST);
-            print_r($dataAfterValidate);
             ($dataAfterValidate['stop']) ? Error::error($dataAfterValidate['error']) :
                         $this->mainController->mainController($dataAfterValidate);
-
         }
     }
 

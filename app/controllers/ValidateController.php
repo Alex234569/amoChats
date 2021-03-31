@@ -2,15 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\validate\Validate;
-use app\models\validate\ValidateModel;
 use app\models\validate\Val;
-use app\models\validate\Getter;
-use app\models\validate\Putter;
 
-
-
-use app\views\Error;
 
 class ValidateController
 {
