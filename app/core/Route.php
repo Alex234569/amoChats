@@ -27,6 +27,9 @@ class Route
                 case 'ErrorCode':
                     require_once DIR . '/app/views/ErrorCode.php';
                     break;
+                case 'Pattern':
+                    require_once DIR . '/app/views/Pattern.php';
+                    break;
                 default:
                     require_once DIR . '/app/views/Error404.php';
             }
