@@ -16,12 +16,14 @@ class Controller
     private ValidateController $validateController;
     private MainController $mainController;
 
+    /**
+     * Подключение маргрутизации
+     * Controller constructor.
+     */
     public function __construct()
     {
         $this->validateController = new ValidateController();
         $this->mainController = new MainController();
-        require_once DIR . "/app/views/Template.php";
-        Route::buildRoute($_GET);
     }
 
     /**

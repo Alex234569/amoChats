@@ -17,7 +17,7 @@
     </div>
 
     <div class="rightColumn">
-        <a href="#"><img src="../../js/img/pinkPanther.jpg" width="100%" height="100%"></a>
+        <a href="#"><img src="../../images/pinkPanther.jpg" width="100%" height="100%"></a>
     </div>
 
 </body>
