@@ -12,8 +12,7 @@ class Putter
 {
     private DataBaseChats $dataBaseChats;
     private PutterEntity $putterEntity;
-    private \mysqli $mysqli;
-    private \mysqli_stmt $mysqli_stmt;
+    private \PDO $mysqli;
 
     public function __construct()
     {
@@ -55,52 +54,19 @@ class Putter
         }
         $numberParams = mb_substr($numberParams, -0, -12);
 
+        // Подготовка данных для запроса
         $query = "SELECT * FROM tegs WHERE teg = ($numberParams)";
 
-        $this->mysqli_stmt = $this->mysqli->prepare($query);
-
-        switch ($tagsAmount){
-            case 1:
-                $this->mysqli_stmt->bind_param('s', $tagsToSearchArr[0]);
-                break;
-            case 2:
-                $this->mysqli_stmt->bind_param('ss', $tagsToSearchArr[0], $tagsToSearchArr[1]);
-                break;
-            case 3:
-                $this->mysqli_stmt->bind_param('sss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2]);
-                break;
-            case 4:
-                $this->mysqli_stmt->bind_param('ssss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2], $tagsToSearchArr[3]);
-                break;
-            case 5:
-                $this->mysqli_stmt->bind_param('sssss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2], $tagsToSearchArr[3], $tagsToSearchArr[4]);
-                break;
-            case 6:
-                $this->mysqli_stmt->bind_param('ssssss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2], $tagsToSearchArr[3], $tagsToSearchArr[4], $tagsToSearchArr[5]);
-                break;
-            case 7:
-                $this->mysqli_stmt->bind_param('sssssss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2], $tagsToSearchArr[3], $tagsToSearchArr[4], $tagsToSearchArr[5], $tagsToSearchArr[6]);
-                break;
-            case 8:
-                $this->mysqli_stmt->bind_param('ssssssss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2], $tagsToSearchArr[3], $tagsToSearchArr[4], $tagsToSearchArr[5], $tagsToSearchArr[6], $tagsToSearchArr[7]);
-                break;
-            case 9:
-                $this->mysqli_stmt->bind_param('sssssssss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2], $tagsToSearchArr[3], $tagsToSearchArr[4], $tagsToSearchArr[5], $tagsToSearchArr[6], $tagsToSearchArr[7], $tagsToSearchArr[8]);
-                break;
-            case 10:
-                $this->mysqli_stmt->bind_param('ssssssssss', $tagsToSearchArr[0], $tagsToSearchArr[1], $tagsToSearchArr[2], $tagsToSearchArr[3], $tagsToSearchArr[4], $tagsToSearchArr[5], $tagsToSearchArr[6], $tagsToSearchArr[7], $tagsToSearchArr[8], $tagsToSearchArr[9]);
-                break;
-        }
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->execute($tagsToSearchArr);
 
         $tagsThatDBAlreadyHas = NULL;
-        $this->mysqli_stmt->execute();
-        $this->mysqli_stmt->bind_result( $idTag1, $tag12);
-        while ($this->mysqli_stmt->fetch()) {
-            $one['idTag'] = $idTag1;
-            $one['tag'] = $tag12;
+        while ($row = $stmt->fetch(\PDO::FETCH_LAZY))
+        {
+            $one['idTag'] = $row['id_teg'];
+            $one['tag'] = $row['teg'];
             $tagsThatDBAlreadyHas[] = $one;
         }
-        $this->mysqli_stmt->close();
 
     //  Сравнение имеющихся тегов в БД с пришедшими из запроса
         $tagsDBFiltered = [];
@@ -122,17 +88,12 @@ class Putter
      */
     private function tegAdjuster(array $missedTags): void
     {
-// todo:  bind_param() with a dynamic number of arguments
-
         $query = 'INSERT INTO tegs (teg) VALUES (?)';
-        $this->mysqli_stmt = $this->mysqli->prepare($query);
+        $stmt = $this->mysqli->prepare($query);
 
         foreach ($missedTags as $tag) {
-            print_r($tag);
-            $this->mysqli_stmt->bind_param('s', $tag);
-            $this->mysqli_stmt->execute();
+            $stmt->execute(array($tag));
         }
-        $this->mysqli_stmt->close();
 
         //  вызов функции чекера
         $this->tegSearcher();
@@ -149,23 +110,19 @@ class Putter
  */
     private function mainSearcher(string $question, string $answer, $stopper = NULL): void
     {
-
-
         $query = "SELECT main.id_main, main.question, main.answer, main.url, main.date FROM main WHERE question = ? AND answer = ?";
-        $this->mysqli_stmt = $this->mysqli->prepare($query);
-        $this->mysqli_stmt->bind_param('ss', $question, $answer);
-        $this->mysqli_stmt->execute();
-        $this->mysqli_stmt->bind_result( $idMain, $question, $answer, $url, $date);
-        $this->mysqli_stmt->fetch();
-        $this->mysqli_stmt->close();
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->execute(array($question, $answer));
+        $stmt->fetch();
+        $row = $stmt->fetch(\PDO::FETCH_LAZY);
 
-        if (empty($idMain)) {                                                                  //  если пары нет, то $response пустой
+        if ($row == false) {                                                                  //  если пары нет, то $response пустой
             $this->mainAdjuster($question, $answer);                                                //      и тогда вызываем f() для добавления пары
-        } elseif ($stopper !== NULL) {                                                              //  в случае если данная f() вызывается из mainAdjuster(), то выполняется это условие
-            $this->putterEntity->setId($idMain);                                               //      запись main_id в хранилище
+        } elseif ($stopper !== NULL) {                                                        //  в случае если данная f() вызывается из mainAdjuster(), то выполняется это условие
+            $this->putterEntity->setId($row['id_main']);                                            //      запись main_id в хранилище
             $this->compoundAdjuster();                                                              //      и вызываем f() связыватель teg & main
-        } elseif ($stopper == NULL) {                                                          //   если пришла пара вопрос/ответ из главной f(), и есть уже такая пара,
-            $this->putterEntity->setId($idMain);                                                    //   то записываем main_id
+        } elseif ($stopper == NULL) {                                                         //   если пришла пара вопрос/ответ из главной f(), и есть уже такая пара,
+            $this->putterEntity->setId($row['id_main']);                                            //   то записываем main_id
         }
     }
 
@@ -176,7 +133,7 @@ class Putter
  */
     private function mainAdjuster($question, $answer): void 
     {
-        $url = $this->putterEntity->getUrl();                                                    //  вытягивание из хранилища доп необязательной инфы
+        $url = $this->putterEntity->getUrl();                                                 //  вытягивание из хранилища доп необязательной инфы
         $date = $this->putterEntity->getDate();
 
         if (empty($url)) {
@@ -187,12 +144,10 @@ class Putter
         }
         $query = "INSERT INTO main (question, answer, url, date) VALUES (?, ?, ?, ?)";
 
-        $this->mysqli_stmt = $this->mysqli->prepare($query);
-        $this->mysqli_stmt->bind_param('ssss', $question, $answer, $url, $date);
-        $this->mysqli_stmt->execute();
-        $this->mysqli_stmt->close();
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->execute(array($question, $answer, $url, $date));
 
-        $this->mainSearcher($question, $answer, 'added');               //  рекурсив
+        $this->mainSearcher($question, $answer, 'added');                             //  рекурсив
     }
 
 
@@ -205,10 +160,9 @@ class Putter
         $tagId = $this->putterEntity->getTagsFromDB();
 
         $query = "INSERT INTO compound (id_main, id_teg) VALUES (?, ?)";
-        $this->mysqli_stmt = $this->mysqli->prepare($query);
+        $stmt = $this->mysqli->prepare($query);
         foreach ($tagId as $tag) {
-            $this->mysqli_stmt->bind_param('ss', $idMain, $tag['idTag']);
-            $this->mysqli_stmt->execute();
+            $stmt->execute(array($idMain, $tag['idTag']));
         }
 
     }
