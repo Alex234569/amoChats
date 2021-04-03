@@ -2,139 +2,107 @@
 
 namespace app\models\validate;
 
+/**
+ * Валидация и нормализация входящей информации
+ * Class Validate
+ * @package app\models\validate
+ */
 class Validate
 {
+    private string $button;
+    private ?array $tagArr = NULL;
+    private ?string $tagString = NULL;
+    private ?string $question = NULL;
+    private ?string $answer = NULL;
+    private ?string $url = NULL;
+
+    private ?string $date;
     private bool $stop = false;
     private ?string $error = NULL;
-    
-    private string $whatToDo;    
-    
-    private ?string $getTagsString = NULL;
-    private ?array $getTagsArray = NULL;
 
-    private ?string $addQuestion = NULL;    
-    private ?string $addAnswer = NULL;    
-    private ?string $addUrl = NULL;    
-    private ?string $addDate = NULL;    
-    private ?string $addTagsString = NULL;
-    private ?array $addTagsArray = NULL;
 
-    /**
-     * Основная функция валидатора, проверка действия и вызов других функций
-     * @param array $data
-     * @return array
-     */
-    public function validator(array $data): array
+    public function __construct(string $button)
     {
-        switch($data['button']) {
-            case 'getInfo':
-                $this->getInfo($data);
-                return empty($this->error) ? $this->getGetInfo() : $this->getError();
-            case 'addInfo':
-                $this->addInfo($data);
-                return empty($this->error) ? $this->getAddInfo() : $this->getError();
-            default:
-                $this->stop = true;
-                $this->error = 'No such case to validate (/inc/Validate.php)';
- 
-                return $this->getError();
-        }
+        $this->button = $button;
     }
 
     /**
-     * Подготовка данных для запроса информации из БД по тегам
-     * @param array $data
+     * Чистим строку тегов, записываем ее в виде массива и строки
+     * @param string $tag
+     * @return $this
      */
-    private function getInfo(array $data): void
+    public function setTag(string $tag): self
     {
-        $cleanData = trim($data['getInfo']);
-        if (!empty($cleanData)){
-            $tagsArr = explode(" ", preg_replace('/\s\s+/', ' ', $cleanData));          //  нормализация тегов: без пробелов и повторов
-            $tagsArr = array_unique($tagsArr, SORT_STRING);
-            $getTagsString = implode(' ', $tagsArr);
+        $tagArr = explode(" ", preg_replace('/\s\s+/', ' ', trim($tag)));
+        $tagArr = array_values(array_unique($tagArr, SORT_STRING));
+        $tagString = implode(' ', $tagArr);
+        $this->tagArr = $tagArr;
+        $this->tagString = $tagString;
+        return $this;
+    }
 
-            $this->whatToDo = 'getInfo';
-            $this->getTagsString = $getTagsString;
-            $this->getTagsArray = $tagsArr;
+    /**
+     * @param ?string $question
+     * @return $this
+     */
+    public function setQuestion(?string $question): self
+    {
+        $this->question = trim($question);
+        return $this;
+    }
+
+    /**
+     * @param ?string $answer
+     * @return $this
+     */
+    public function setAnswer(?string $answer): self
+    {
+        $this->answer = trim($answer);
+        return $this;
+    }
+
+    /**
+     * @param ?string $url
+     * @return $this
+     */
+    public function setUrl(?string $url): self
+    {
+        $url = trim($url);
+        if ((filter_var($url, FILTER_VALIDATE_URL) !=false) || (empty($url) == true)) {
+            $this->url = $url;
         } else {
             $this->stop = true;
-            $this->error = 'Empty querry to search (/inc/Validate.php)';
+            $this->error = 'Wrong url';
         }
+        return $this;
     }
 
     /**
-     * Подготовка данных для добавления их в БД
-     * @param array $data
+     * @param ?string $date
+     * @return $this
      */
-    private function addInfo(array $data): void
+    public function setDate(?string $date): self
     {
-        $cleanQuestion = trim($data['addInfoQuestion']);
-        $cleanAnswer = trim($data['addInfoAnswer']);
-        $cleanTags = trim($data['addInfoTags']);
-
-        if (!empty($cleanQuestion) && !empty($cleanAnswer) && !empty($cleanTags)){
-            $tagsArr = explode(" ", preg_replace('/\s\s+/', ' ', $cleanTags));          //  нормализация тегов
-            $tagsArr = array_unique($tagsArr, SORT_STRING);
-            $addTagsString = implode(' ', $tagsArr);
-
-            $this->whatToDo = 'addInfo';
-            $this->addQuestion = $cleanQuestion;
-            $this->addAnswer = $cleanAnswer;
-            $this->addTagsString = $addTagsString;
-            $this->addTagsArray = $tagsArr;
-            if (!empty($data['addInfoUrl'])) {
-                $cleanUrl = trim($data['addInfoUrl']);
-                if (filter_var($cleanUrl, FILTER_VALIDATE_URL) !=false){
-                    $this->addUrl = $cleanUrl;
-                } else {
-                    $this->stop = true;
-                    $this->error = 'Wrong URL (/inc/Validate.php)';
-                }
-            }
-            $this->addDate = isset($data['addInfoDate']) ? $data['addInfoDate'] : NULL;
-        } else {
-            $this->stop = true;
-            $this->error = 'Empty query to add (/inc/Validate.php)';
-        }
+        $this->date = $date;
+        return $this;
     }
 
     /**
+     * Вывод всех объектов класса
      * @return array
      */
-    private function getError(): array
+    public function getAll(): array
     {
         $data = [];
+        $data['button'] = $this->button;
+        $data['tagArr'] = $this->tagArr;
+        $data['tagString'] = $this->tagString;
+        $data['question'] = $this->question;
+        $data['answer'] = $this->answer;
+        $data['url'] = $this->url;
+        $data['date'] = $this->date;
         $data['stop'] = $this->stop;
         $data['error'] = $this->error;
         return $data;
     }
-
-    /**
-     * @return array данные для запроса к БД по тегам
-     */
-    private function getGetInfo(): array
-    {
-        $data = [];
-        $data['whatToDo'] = $this->whatToDo;
-        $data['getTagsString'] = $this->getTagsString;
-        $data['getTagsArray'] = $this->getTagsArray;
-        return $data;
-    }
-
-    /**
-     * @return array дагнные для добалвения в БД с тегами
-     */
-    private function getAddInfo(): array
-    {
-        $data = [];
-        $data['whatToDo'] = $this->whatToDo;
-        $data['addQuestion'] = $this->addQuestion;
-        $data['addAnswer'] = $this->addAnswer;
-        $data['addUrl'] = $this->addUrl;
-        $data['addDate'] = $this->addDate;
-        $data['addTagsString'] = $this->addTagsString;
-        $data['addTagsArray'] = $this->addTagsArray;
-        return $data;
-    }
-
 }

@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\validate\Validate;
 use app\models\getFromDB\Getter;
 use app\models\putInDB\Putter;
 use app\views\Error;
@@ -16,11 +15,9 @@ use app\views\PutInfo;
  */
 class MainController
 {
-    private Validate $validate;
 
     public function __construct()
     {
-        $this->validate = new Validate;
     }
 
     /**

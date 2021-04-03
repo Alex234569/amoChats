@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\validate\Val;
+use app\models\validate\Validate;
 
 
 class ValidateController
@@ -31,7 +31,7 @@ class ValidateController
      */
     private function putInfo(array $data): array
     {
-        $validate = new Val($data['button']);
+        $validate = new Validate($data['button']);
         $validate
             ->setTag($data['tag'])
             ->setQuestion(isset ($data['question']) ? $data['question'] : NULL)
