@@ -32,17 +32,9 @@
         </div>
     </div>
     <div class="errorCodeBlock">
-        <div class="littleHeader">Задержка чатов</div><br />
-            Сейчас наблюдаются задержки в работе чатов. В ближайшее время работа должна стабилизироваться
+        <div class="littleHeader">Jira</div><br />
         <div class="littleResult">
-
-        </div>
-    </div>
-    <div class="errorCodeBlock">
-        <div class="littleHeader">Задержка хуков</div><br />
-        <div class="littleResult">
-            Сейчас наблюдаются задержки в работе хуков, это связано с нагрузкой на сервер. В ближайшее время работа должна стабилизироваться<p>
-            У нас наблюдались задержки в работе чатов и хуков. На данный момент ситуация нормализовалась
+            Зафиксировали ваше обращение и добавили в список работ. Мы обязательно проинформируем вас после того, как необходимые правки будут внесены.
         </div>
     </div>
     <div class="errorCodeBlock">
@@ -52,9 +44,17 @@
         </div>
     </div>
     <div class="errorCodeBlock">
-        <div class="littleHeader"></div><br />
+        <div class="littleHeader">Задержка чатов</div><br />
+        Сейчас наблюдаются задержки в работе чатов. В ближайшее время работа должна стабилизироваться
         <div class="littleResult">
 
+        </div>
+    </div>
+    <div class="errorCodeBlock">
+        <div class="littleHeader">Задержка хуков</div><br />
+        <div class="littleResult">
+            Сейчас наблюдаются задержки в работе хуков, это связано с нагрузкой на сервер. В ближайшее время работа должна стабилизироваться<p>
+            У нас наблюдались задержки в работе чатов и хуков. На данный момент ситуация нормализовалась
         </div>
     </div>
     <div class="errorCodeBlock">

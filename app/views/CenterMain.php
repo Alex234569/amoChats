@@ -10,7 +10,7 @@
         <p id='boldText'>Информация для добавления:</p>
         <form action='' id='addInfo' method = 'POST'></form>
         <label for='textareaAddInfoQuestion'></label><textarea id='textareaAddInfoQuestion' placeholder='Вопрос' maxlength = '1000' required form='addInfo' name='question'></textarea><br />
-        <label for='textareaAddInfoAnswer'></label><textarea id='textareaAddInfoAnswer' placeholder='Ответ' maxlength = '2000' required form='addInfo' name='answer'></textarea><br />
+        <label for='textareaAddInfoAnswer'></label><textarea id='textareaAddInfoAnswer' placeholder='Ответ' maxlength = '3000' required form='addInfo' name='answer'></textarea><br />
         <label for='textareaAddInfoTags'></label><textarea id='textareaAddInfoTags' placeholder='Теги' maxlength = '128' required form='addInfo' name='tag'></textarea><br />
         <label for='textareaAddInfoUrl'></label><textarea id='textareaAddInfoUrl' placeholder='Ссылка' maxlength = '255' form='addInfo' name='url'></textarea><br />
         <label><input type="date" form='addInfo' name='date'></label><br />

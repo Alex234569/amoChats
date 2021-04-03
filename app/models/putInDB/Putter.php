@@ -11,12 +11,12 @@ use app\models\lib\DataBaseChats;
 class Putter
 {
     private DataBaseChats $dataBaseChats;
-    private PutterEntity $putterEntity;
+    private PutterModel $putterEntity;
     private \PDO $mysqli;
 
     public function __construct()
     {
-        $this->putterEntity = new PutterEntity();
+        $this->putterEntity = new PutterModel();
         $this->dataBaseChats = new DataBaseChats();
         $this->mysqli = $this->dataBaseChats->getMysqli();
     }

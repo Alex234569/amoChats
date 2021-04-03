@@ -10,13 +10,13 @@ use app\models\lib\DataBaseChats;
  */
 class Getter
 {
-    private GetterEntity $getterEntity;
+    private GetterModel $getterEntity;
     private DataBaseChats $dataBaseChats;
     private \PDO $mysqli;
 
     public function __construct()
     {
-        $this->getterEntity = new GetterEntity();
+        $this->getterEntity = new GetterModel();
         $this->dataBaseChats = new DataBaseChats();
         $this->mysqli = $this->dataBaseChats->getMysqli();
     }

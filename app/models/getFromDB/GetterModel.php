@@ -4,10 +4,10 @@ namespace app\models\getFromDB;
 
 /**
  * Хранитель для получения информации по тегам
- * Class GetterEntity
+ * Class GetterModel
  * @package app\models\getFromDB
  */
-class GetterEntity
+class GetterModel
 {
     private bool $stop = false;
     private ?string $error = NULL;

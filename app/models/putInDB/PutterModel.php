@@ -4,10 +4,10 @@ namespace app\models\putInDB;
 
 /**
  * Хранитель для добалвения информации с тегами
- * Class PutterEntity
+ * Class PutterModel
  * @package app\models\putInDB
  */
-class PutterEntity
+class PutterModel
 {
     private bool $stop = false;
     private ?string $error = NULL;
