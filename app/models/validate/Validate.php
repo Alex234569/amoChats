@@ -15,8 +15,8 @@ class Validate
     private ?string $question = NULL;
     private ?string $answer = NULL;
     private ?string $url = NULL;
-
     private ?string $date;
+
     private bool $stop = false;
     private ?string $error = NULL;
 
@@ -25,6 +25,63 @@ class Validate
     {
         $this->button = $button;
     }
+
+    /**
+     * @return string
+     */
+    public function getButton(): string
+    {
+        return $this->button;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getTagArr(): ?array
+    {
+        return $this->tagArr;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTagString(): ?string
+    {
+        return $this->tagString;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getQuestion(): ?string
+    {
+        return $this->question;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAnswer(): ?string
+    {
+        return $this->answer;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDate(): ?string
+    {
+        return $this->date;
+    }
+
 
     /**
      * Чистим строку тегов, записываем ее в виде массива и строки
@@ -87,11 +144,41 @@ class Validate
         return $this;
     }
 
+
+    /**
+     * @return bool
+     */
+    public function isStop(): bool
+    {
+        return $this->stop;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getError(): ?string
+    {
+        return $this->error;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Вывод всех объектов класса
      * @return array
      */
-    public function getAll(): array
+/*    public function getAll(): array
     {
         $data = [];
         $data['button'] = $this->button;
@@ -105,4 +192,5 @@ class Validate
         $data['error'] = $this->error;
         return $data;
     }
+*/
 }

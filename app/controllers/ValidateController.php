@@ -17,7 +17,7 @@ class ValidateController
      * @param array $data
      * @return array
      */
-    public function main(array $data): array
+    public function main(array $data): Validate
     {
         if ($data['button'] == 'getInfo' || $data['button'] == 'addInfo'){
             return $this->putInfo($data);
@@ -29,7 +29,7 @@ class ValidateController
      * @param array $data
      * @return array
      */
-    private function putInfo(array $data): array
+    private function putInfo(array $data): Validate
     {
         $validate = new Validate($data['button']);
         $validate
@@ -38,7 +38,6 @@ class ValidateController
             ->setAnswer(isset ($data['answer']) ? $data['answer'] : NULL)
             ->setUrl(isset ($data['url']) ? $data['url'] : NULL)
             ->setDate(isset ($data['date']) ? $data['date'] : NULL);
-
-        return $validate->getAll();
+        return $validate;
     }
 }

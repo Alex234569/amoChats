@@ -11,9 +11,18 @@ class Boo
         $this->one = $one;
         $this->two = $two;
     }
-    public function __destruct()
+
+    public function no(): self
     {
-        // TODO: Implement __destruct() method.
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOne(): int
+    {
+        return $this->one;
     }
 
 }

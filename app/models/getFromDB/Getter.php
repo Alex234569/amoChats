@@ -3,6 +3,7 @@
 namespace app\models\getFromDB;
 
 use app\models\lib\DataBaseChats;
+use app\models\validate\Validate;
 
 /**
  * Class Getter для получения информации по тегам
@@ -14,9 +15,9 @@ class Getter
     private DataBaseChats $dataBaseChats;
     private \PDO $mysqli;
 
-    public function __construct()
+    public function __construct(Validate $data)
     {
-        $this->getterEntity = new GetterModel();
+        $this->getterEntity = new GetterModel($data);
         $this->dataBaseChats = new DataBaseChats();
         $this->mysqli = $this->dataBaseChats->getMysqli();
     }
@@ -24,12 +25,10 @@ class Getter
 
     /**
      * Основая функция контролирующая получение информации по тегам
-     * @param array $data
      * @return array
      */
-    public function mainGetter(array $data): array
+    public function mainGetter(): array
     {
-        $this->getterEntity->separator($data);
         $mainInfoWithoutTag = $this->mainSearcher();
         empty($mainInfoWithoutTag) ? $this->getterEntity->setResultEmpty() : $this->addTegToResult($mainInfoWithoutTag);
         return $this->getterEntity->getResult();

@@ -3,6 +3,7 @@
 namespace app\models\putInDB;
 
 use app\models\lib\DataBaseChats;
+use app\models\validate\Validate;
 
 /**
  * Class Putter для добалвения информации с тегами
@@ -14,21 +15,20 @@ class Putter
     private PutterModel $putterEntity;
     private \PDO $mysqli;
 
-    public function __construct()
+    public function __construct(Validate $data)
     {
-        $this->putterEntity = new PutterModel();
+        $this->putterEntity = new PutterModel($data);
         $this->dataBaseChats = new DataBaseChats();
         $this->mysqli = $this->dataBaseChats->getMysqli();
     }
 
     /**
      * Основая функция контролирующая отправку информации в ДБ
-     * @param array $data
      * @return array
      */
-    public function mainPutter(array $data): array
+    public function mainPutter(): array
     {
-        $this->putterEntity->separator($data);
+      //  $this->putterEntity->separator($data);
 
         $this->tegSearcher();
         $question = $this->putterEntity->getQuestion();

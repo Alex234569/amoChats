@@ -14,7 +14,17 @@ class In
 
     public function nothing()
     {
+        $no = $this->boo->no();
 
+
+        Foo::f($no);
     }
 
 }
+
+
+$in = new In();
+$in->nothing();
+
+
+

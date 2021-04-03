@@ -22,6 +22,8 @@ class Controller
      */
     public function __construct()
     {
+        echo "<pre>";
+        echo "<div class='center'>";
         $this->validateController = new ValidateController();
         $this->mainController = new MainController();
     }
@@ -33,8 +35,17 @@ class Controller
     {
         if (!empty($_POST)){
             $dataAfterValidate = $this->validateController->main($_POST);
+            if ($dataAfterValidate->isStop() === true) {
+                Error::error($dataAfterValidate->getError());
+            } else {
+                $this->mainController->mainController($dataAfterValidate);
+            }
+
+
+            /*
             ($dataAfterValidate['stop']) ? Error::error($dataAfterValidate['error']) :
                         $this->mainController->mainController($dataAfterValidate);
+            */
         }
     }
 

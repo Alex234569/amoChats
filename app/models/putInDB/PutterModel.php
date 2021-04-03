@@ -2,6 +2,8 @@
 
 namespace app\models\putInDB;
 
+use app\models\validate\Validate;
+
 /**
  * Хранитель для добалвения информации с тегами
  * Class PutterModel
@@ -13,27 +15,24 @@ class PutterModel
     private ?string $error = NULL;
 
     private ?int $id = NULL;
-    private string $question;
-    private string $answer;
-    private ?string $url = NULL;
-    private ?string $date = NULL;
+    private ?string $question;
+    private ?string $answer;
+    private ?string $url;
+    private ?string $date;
 
-    private ?string $addTagsString = NULL;
-    private ?array $addTagsArray = NULL;
+    private ?string $addTagsString;
+    private ?array $addTagsArray;
     private ?array $tagsWithIdArray = NULL;
 
-    /**
-     * Разъединяет входящую информацию
-     * @param array $data
-     */
-    public function separator(array $data): void
+
+    public function __construct(Validate $data)
     {
-        $this->question = $data['question'];
-        $this->answer = $data['answer'];
-        $this->url = $data['url'];
-        $this->date = $data['date'];
-        $this->addTagsString = $data['tagString'];
-        $this->addTagsArray = $data['tagArr'];
+        $this->question = $data->getQuestion();
+        $this->answer = $data->getAnswer();
+        $this->url = $data->getUrl();
+        $this->date = $data->getDate();
+        $this->addTagsString = $data->getTagString();
+        $this->addTagsArray = $data->getTagArr();
     }
 
 /**

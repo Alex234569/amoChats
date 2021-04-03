@@ -2,6 +2,8 @@
 
 namespace app\models\getFromDB;
 
+use app\models\validate\Validate;
+
 /**
  * Хранитель для получения информации по тегам
  * Class GetterModel
@@ -12,20 +14,18 @@ class GetterModel
     private bool $stop = false;
     private ?string $error = NULL;
     
-    private ?string $getTagsString = NULL;
-    private ?array $getTagsArray = NULL;
+    private ?string $getTagsString;
+    private ?array $getTagsArray;
     private array $resultingArr;
 
 
-    /**
-     * Разъединяет входящую информацию
-     * @param array $data входящие теги, в виде массива и строки
-     */
-    public function separator(array $data): void
+
+    public function __construct(Validate $data)
     {
-        $this->getTagsString = $data['tagString'];
-        $this->getTagsArray = $data['tagArr'];
+        $this->getTagsString = $data->getTagString();
+        $this->getTagsArray = $data->getTagArr();
     }
+
 
     /**
      * Возвращает данные на отображение
