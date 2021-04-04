@@ -2,10 +2,10 @@
 
 namespace app\models\getFromDB;
 
-use app\models\validate\Validate;
+use app\models\validate\ValidateModel;
 
 /**
- * Хранитель для получения информации по тегам
+ * Модель для получения информации по тегам
  * Class GetterModel
  * @package app\models\getFromDB
  */
@@ -20,18 +20,41 @@ class GetterModel
 
 
 
-    public function __construct(Validate $data)
+    public function __construct(ValidateModel $data)
     {
         $this->getTagsString = $data->getTagString();
-        $this->getTagsArray = $data->getTagArr();
+        $this->getTagsArray  = $data->getTagArr();
     }
 
+    /**
+     * @return bool
+     */
+    public function isStop(): bool
+    {
+        return $this->stop;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getError(): ?string
+    {
+        return $this->error;
+    }
+
+    /**
+     * @return array
+     */
+    public function getResultingArr(): array
+    {
+        return $this->resultingArr;
+    }
 
     /**
      * Возвращает данные на отображение
      * @return array
      */
-    public function getResult(): array
+/*    public function getResult(): array
     {
         $data = [];
         if ($this->stop != true) {
@@ -44,26 +67,30 @@ class GetterModel
             return $data;
         }
     }
-
+*/
 
 //  Set
 
     /**
      * Устанавливает массив данных для отображения
      * @param array $data
+     * @return $this
      */
-    public function setResultArr(array $data)
+    public function setResultArr(array $data): self
     {
         $this->resultingArr = $data;
+        return $this;
     }
 
     /**
      * Устанавливает стоппер
+     * @return $this
      */
-    public function setResultEmpty(): void
+    public function setResultEmpty(): self
     {
         $this->stop = true;
         $this->error = "Нет данных по тегам: $this->getTagsString";
+        return $this;
     }
     
 //  Get

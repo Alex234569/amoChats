@@ -3,8 +3,9 @@
 namespace app\controllers;
 
 use app\models\getFromDB\Getter;
+use app\models\getFromDB\GetterModel;
 use app\models\putInDB\Putter;
-use app\models\validate\Validate;
+use app\models\validate\ValidateModel;
 use app\views\Error;
 use app\views\GetInfo;
 use app\views\PutInfo;
@@ -16,22 +17,24 @@ use app\views\PutInfo;
  */
 class MainController
 {
-
-    public function __construct()
-    {
-    }
-
     /**
      * На данный момент это главная функция, вызываемся при заполнении форм
-     * @param array $data массив входящих данных
+     * @param ValidateModel $data
      */
-    public function mainController(Validate $data): void
+    public function mainController(ValidateModel $data): void
     {
         $button = $data->getButton();
         switch ($button) {
             case 'getInfo':
                 $getInfoRes = $this->getFromDB($data);
-                isset($getInfoRes['stop']) ? Error::error($getInfoRes['error']) : GetInfo::getInfo($getInfoRes);
+                if ($getInfoRes->isStop() === true) {
+                    Error::error($getInfoRes->getError());
+                } else {
+                    GetInfo::getInfo($getInfoRes);
+                }
+
+
+            //    isset($getInfoRes['stop']) ? Error::error($getInfoRes['error']) : GetInfo::getInfo($getInfoRes);
                 break;
             case 'addInfo':
                 $putInfoRes = $this->putInDB($data);
@@ -42,10 +45,10 @@ class MainController
 
     /**
      * Вызыв модели для получения инфорамции из БД по тегам
-     * @param Validate $data
-     * @return array
+     * @param ValidateModel $data
+     * @return GetterModel
      */
-    public function getFromDB(Validate $data): array
+    public function getFromDB(ValidateModel $data): GetterModel
     {
         $dbGetter = new Getter($data);
         return $dbGetter->mainGetter();
@@ -54,10 +57,10 @@ class MainController
 
     /**
      * Вызыв модели для добавления инфорамции в БД с тегами
-     * @param Validate $data
+     * @param ValidateModel $data
      * @return array
      */
-    public function putInDB(Validate $data): array
+    public function putInDB(ValidateModel $data): array
     {
         $dbPutter = new Putter($data);
         return $dbPutter->mainPutter();

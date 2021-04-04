@@ -2,22 +2,21 @@
 
 namespace app\controllers;
 
-use app\models\validate\Validate;
+use app\models\validate\ValidateModel;
 
-
+/**
+ * Валидация и нормализация входящих данных
+ * Class ValidateController
+ * @package app\controllers
+ */
 class ValidateController
 {
-
-    public function __construct()
-    {
-    }
-
     /**
      * Основной контроллер валидаторов
      * @param array $data
-     * @return array
+     * @return ValidateModel
      */
-    public function main(array $data): Validate
+    public function main(array $data): ValidateModel
     {
         if ($data['button'] == 'getInfo' || $data['button'] == 'addInfo'){
             return $this->putInfo($data);
@@ -27,11 +26,11 @@ class ValidateController
     /**
      * Обработчкик поступающей информации из форм
      * @param array $data
-     * @return array
+     * @return ValidateModel
      */
-    private function putInfo(array $data): Validate
+    private function putInfo(array $data): ValidateModel
     {
-        $validate = new Validate($data['button']);
+        $validate = new ValidateModel($data['button']);
         $validate
             ->setTag($data['tag'])
             ->setQuestion(isset ($data['question']) ? $data['question'] : NULL)

@@ -10,6 +10,9 @@ namespace app\views;
  */
 class Error
 {
+    /**
+     * @param string $data
+     */
     public static function error(string $data): void
     {
         ?><div class="center">

@@ -2,10 +2,10 @@
 
 namespace app\models\putInDB;
 
-use app\models\validate\Validate;
+use app\models\validate\ValidateModel;
 
 /**
- * Хранитель для добалвения информации с тегами
+ * Модель для добалвения информации с тегами
  * Class PutterModel
  * @package app\models\putInDB
  */
@@ -25,18 +25,18 @@ class PutterModel
     private ?array $tagsWithIdArray = NULL;
 
 
-    public function __construct(Validate $data)
+    public function __construct(ValidateModel $data)
     {
-        $this->question = $data->getQuestion();
-        $this->answer = $data->getAnswer();
-        $this->url = $data->getUrl();
-        $this->date = $data->getDate();
-        $this->addTagsString = $data->getTagString();
-        $this->addTagsArray = $data->getTagArr();
+        $this->question         = $data->getQuestion();
+        $this->answer           = $data->getAnswer();
+        $this->url              = $data->getUrl();
+        $this->date             = $data->getDate();
+        $this->addTagsString    = $data->getTagString();
+        $this->addTagsArray     = $data->getTagArr();
     }
 
 /**
- * подготавливает массив с избыточнм количеством даных для вывода, их обработка будет осуществляться в header.php
+ * подготавливает массив с избыточнм количеством даных для вывода
  */
     public function getAll(): array
     {

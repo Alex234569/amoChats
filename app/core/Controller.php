@@ -7,7 +7,7 @@ use app\controllers\ValidateController;
 use app\views\Error;
 
 /**
- * Отвечает за подключение всех div, организует инициализацию бэка
+ * Отвечает за подключение всех остальных div, организует инициализацию бэка
  * Class Controller
  * @package app\core
  */
@@ -17,13 +17,10 @@ class Controller
     private MainController $mainController;
 
     /**
-     * Подключение маргрутизации
      * Controller constructor.
      */
     public function __construct()
     {
-        echo "<pre>";
-        echo "<div class='center'>";
         $this->validateController = new ValidateController();
         $this->mainController = new MainController();
     }
@@ -40,12 +37,6 @@ class Controller
             } else {
                 $this->mainController->mainController($dataAfterValidate);
             }
-
-
-            /*
-            ($dataAfterValidate['stop']) ? Error::error($dataAfterValidate['error']) :
-                        $this->mainController->mainController($dataAfterValidate);
-            */
         }
     }
 

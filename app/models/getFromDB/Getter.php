@@ -3,7 +3,7 @@
 namespace app\models\getFromDB;
 
 use app\models\lib\DataBaseChats;
-use app\models\validate\Validate;
+use app\models\validate\ValidateModel;
 
 /**
  * Class Getter для получения информации по тегам
@@ -11,13 +11,13 @@ use app\models\validate\Validate;
  */
 class Getter
 {
-    private GetterModel $getterEntity;
+    private GetterModel $getterModel;
     private DataBaseChats $dataBaseChats;
     private \PDO $mysqli;
 
-    public function __construct(Validate $data)
+    public function __construct(ValidateModel $data)
     {
-        $this->getterEntity = new GetterModel($data);
+        $this->getterModel = new GetterModel($data);
         $this->dataBaseChats = new DataBaseChats();
         $this->mysqli = $this->dataBaseChats->getMysqli();
     }
@@ -25,13 +25,13 @@ class Getter
 
     /**
      * Основая функция контролирующая получение информации по тегам
-     * @return array
+     * @return GetterModel
      */
-    public function mainGetter(): array
+    public function mainGetter(): GetterModel
     {
         $mainInfoWithoutTag = $this->mainSearcher();
-        empty($mainInfoWithoutTag) ? $this->getterEntity->setResultEmpty() : $this->addTegToResult($mainInfoWithoutTag);
-        return $this->getterEntity->getResult();
+        empty($mainInfoWithoutTag) ? $this->getterModel->setResultEmpty() : $this->addTegToResult($mainInfoWithoutTag);
+        return $this->getterModel;
     }
 
 
@@ -41,7 +41,7 @@ class Getter
      */
     private function mainSearcher(): ?array
     {
-        $tagsToSearchArr = $this->getterEntity->getTagsToSearchArr();
+        $tagsToSearchArr = $this->getterModel->getTagsToSearchArr();
         $tagsAmount = count($tagsToSearchArr);
 
         $numberParams = '';
@@ -97,7 +97,7 @@ class Getter
             $data[$key]['tag'] = implode(' ', $tags);
         }
 
-        $this->getterEntity->setResultArr($data);
+        $this->getterModel->setResultArr($data);
     }
 }
 

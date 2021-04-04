@@ -34,7 +34,7 @@ class Route
                     require_once DIR . '/app/views/Error404.php';
             }
         } else {
-            require_once DIR . '/app/views/CenterMain.php';
+            require_once DIR . '/app/views/MainCenter.php';
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace app\models\putInDB;
 
 use app\models\lib\DataBaseChats;
-use app\models\validate\Validate;
+use app\models\validate\ValidateModel;
 
 /**
  * Class Putter для добалвения информации с тегами
@@ -15,7 +15,7 @@ class Putter
     private PutterModel $putterEntity;
     private \PDO $mysqli;
 
-    public function __construct(Validate $data)
+    public function __construct(ValidateModel $data)
     {
         $this->putterEntity = new PutterModel($data);
         $this->dataBaseChats = new DataBaseChats();
@@ -28,11 +28,9 @@ class Putter
      */
     public function mainPutter(): array
     {
-      //  $this->putterEntity->separator($data);
-
         $this->tegSearcher();
         $question = $this->putterEntity->getQuestion();
-        $answer = $this->putterEntity->getAnswer();
+        $answer   = $this->putterEntity->getAnswer();
         $this->mainSearcher($question, $answer);
 
         return $this->putterEntity->getAll();
@@ -60,7 +58,7 @@ class Putter
         $stmt = $this->mysqli->prepare($query);
         $stmt->execute($tagsToSearchArr);
 
-        $tagsThatDBAlreadyHas = NULL;
+        $tagsThatDBAlreadyHas = [];
         while ($row = $stmt->fetch(\PDO::FETCH_LAZY))
         {
             $one['idTag'] = $row['id_teg'];
@@ -126,22 +124,16 @@ class Putter
         }
     }
 
-/**
- * Осуществляет создание новой уникальной пары question & answer d БД
- * @param question - "вопрос" для создания
- * @param answer   - "ответ" для создания
- */
+    /**
+     * Осуществляет создание новой уникальной пары question & answer d БД
+     * @param $question - "вопрос" для создания
+     * @param $answer   - "ответ" для создания
+     */
     private function mainAdjuster($question, $answer): void 
     {
-        $url = $this->putterEntity->getUrl();                                                 //  вытягивание из хранилища доп необязательной инфы
-        $date = $this->putterEntity->getDate();
+        $url  = !empty($this->putterEntity->getUrl())  ? $this->putterEntity->getUrl()  : NULL;   //  вытягивание из хранилища доп необязательной инфы
+        $date = !empty($this->putterEntity->getDate()) ? $this->putterEntity->getDate() : NULL;
 
-        if (empty($url)) {
-            $url = NULL;
-        }
-        if (empty($date)) {
-            $date = NULL;
-        }
         $query = "INSERT INTO main (question, answer, url, date) VALUES (?, ?, ?, ?)";
 
         $stmt = $this->mysqli->prepare($query);

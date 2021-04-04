@@ -3,14 +3,17 @@
 
 namespace app\views;
 
+use app\models\getFromDB\GetterModel;
+
 /**
  * Class GetInfo, отвечает за вывод информации, если она была найдена по тегам в БД
  * @package app\views
  */
 class GetInfo
 {
-    public static function getInfo(array $data): void
+    public static function getInfo(GetterModel $data): void
     {
+        print_r($data)
         ?><div class="center">
             <div class="divToSite"><span id='boldText'>Результаты поиска по тегам: <?=$data['tagsString']?></span>
             <?php
