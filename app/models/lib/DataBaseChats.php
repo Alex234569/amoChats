@@ -32,7 +32,7 @@ class DataBaseChats
      * Получение объекста \PDO
      * @return false|\pdo
      */
-    public function getMysqli()
+    public function getPdo()
     {
         return $this->pdo;
     }

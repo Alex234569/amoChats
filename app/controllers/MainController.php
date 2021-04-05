@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\getFromDB\Getter;
 use app\models\getFromDB\GetterModel;
 use app\models\putInDB\Putter;
+use app\models\putInDB\PutterModel;
 use app\models\validate\ValidateModel;
 use app\views\Error;
 use app\views\GetInfo;
@@ -32,13 +33,18 @@ class MainController
                 } else {
                     GetInfo::getInfo($getInfoRes);
                 }
-
-
-            //    isset($getInfoRes['stop']) ? Error::error($getInfoRes['error']) : GetInfo::getInfo($getInfoRes);
                 break;
             case 'addInfo':
                 $putInfoRes = $this->putInDB($data);
-                isset($putInfoRes['stop']) ? Error::error($putInfoRes['error']) : PutInfo::putInfo($putInfoRes);
+                if ($putInfoRes->isStop() === true) {
+                    Error::error($putInfoRes->getError());
+                } else {
+                    PutInfo::putInfo($putInfoRes);
+                }
+
+
+
+               // isset($putInfoRes['stop']) ? Error::error($putInfoRes['error']) : PutInfo::putInfo($putInfoRes);
         }
     }
 
@@ -60,7 +66,7 @@ class MainController
      * @param ValidateModel $data
      * @return array
      */
-    public function putInDB(ValidateModel $data): array
+    public function putInDB(ValidateModel $data): PutterModel
     {
         $dbPutter = new Putter($data);
         return $dbPutter->mainPutter();

@@ -13,27 +13,27 @@ class Putter
 {
     private DataBaseChats $dataBaseChats;
     private PutterModel $putterEntity;
-    private \PDO $mysqli;
+    private \PDO $pdo;
 
     public function __construct(ValidateModel $data)
     {
         $this->putterEntity = new PutterModel($data);
         $this->dataBaseChats = new DataBaseChats();
-        $this->mysqli = $this->dataBaseChats->getMysqli();
+        $this->pdo = $this->dataBaseChats->getPdo();
     }
 
     /**
      * Основая функция контролирующая отправку информации в ДБ
-     * @return array
+     * @return PutterModel
      */
-    public function mainPutter(): array
+    public function mainPutter(): PutterModel
     {
         $this->tegSearcher();
         $question = $this->putterEntity->getQuestion();
         $answer   = $this->putterEntity->getAnswer();
         $this->mainSearcher($question, $answer);
 
-        return $this->putterEntity->getAll();
+        return $this->putterEntity;
     }
 
 
@@ -55,7 +55,7 @@ class Putter
         // Подготовка данных для запроса
         $query = "SELECT * FROM tegs WHERE teg = ($numberParams)";
 
-        $stmt = $this->mysqli->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute($tagsToSearchArr);
 
         $tagsThatDBAlreadyHas = [];
@@ -87,7 +87,7 @@ class Putter
     private function tegAdjuster(array $missedTags): void
     {
         $query = 'INSERT INTO tegs (teg) VALUES (?)';
-        $stmt = $this->mysqli->prepare($query);
+        $stmt = $this->pdo->prepare($query);
 
         foreach ($missedTags as $tag) {
             $stmt->execute(array($tag));
@@ -109,7 +109,7 @@ class Putter
     private function mainSearcher(string $question, string $answer, $stopper = NULL): void
     {
         $query = "SELECT main.id_main, main.question, main.answer, main.url, main.date FROM main WHERE question = ? AND answer = ?";
-        $stmt = $this->mysqli->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute(array($question, $answer));
         $stmt->fetch();
         $row = $stmt->fetch(\PDO::FETCH_LAZY);
@@ -136,7 +136,7 @@ class Putter
 
         $query = "INSERT INTO main (question, answer, url, date) VALUES (?, ?, ?, ?)";
 
-        $stmt = $this->mysqli->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute(array($question, $answer, $url, $date));
 
         $this->mainSearcher($question, $answer, 'added');                             //  рекурсив
@@ -152,7 +152,7 @@ class Putter
         $tagId = $this->putterEntity->getTagsFromDB();
 
         $query = "INSERT INTO compound (id_main, id_teg) VALUES (?, ?)";
-        $stmt = $this->mysqli->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         foreach ($tagId as $tag) {
             $stmt->execute(array($idMain, $tag['idTag']));
         }

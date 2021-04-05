@@ -18,9 +18,7 @@ class ValidateController
      */
     public function main(array $data): ValidateModel
     {
-        if ($data['button'] == 'getInfo' || $data['button'] == 'addInfo'){
-            return $this->putInfo($data);
-        }
+        return $this->putInfo($data);
     }
 
     /**

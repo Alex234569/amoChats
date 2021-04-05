@@ -13,13 +13,13 @@ class Getter
 {
     private GetterModel $getterModel;
     private DataBaseChats $dataBaseChats;
-    private \PDO $mysqli;
+    private \PDO $pdo;
 
     public function __construct(ValidateModel $data)
     {
         $this->getterModel = new GetterModel($data);
         $this->dataBaseChats = new DataBaseChats();
-        $this->mysqli = $this->dataBaseChats->getMysqli();
+        $this->pdo = $this->dataBaseChats->getPdo();
     }
 
 
@@ -58,7 +58,7 @@ class Getter
             LEFT JOIN tegs ON compound.id_teg = tegs.id_teg 
             WHERE tegs.teg IN ($numberParams) GROUP BY main.id_main HAVING (COUNT(*) = ?)";
 
-        $stmt = $this->mysqli->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute($dataToExecute);
 
         $result = NULL;
@@ -89,7 +89,7 @@ class Getter
                 LEFT JOIN compound ON main.id_main = compound.id_main 
                 LEFT JOIN tegs ON compound.id_teg = tegs.id_teg 
                 WHERE main.id_main = ?";
-            $stmt = $this->mysqli->prepare($query);
+            $stmt = $this->pdo->prepare($query);
 
             $stmt->execute(array($one['idMain']));
             while ($row = $stmt->fetch(\PDO::FETCH_LAZY)) {

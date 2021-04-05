@@ -20,79 +20,76 @@ class PutterModel
     private ?string $url;
     private ?string $date;
 
-    private ?string $addTagsString;
-    private ?array $addTagsArray;
+    private ?string $tagsString;
+    private ?array $tagsArray;
     private ?array $tagsWithIdArray = NULL;
 
 
     public function __construct(ValidateModel $data)
     {
-        $this->question         = $data->getQuestion();
-        $this->answer           = $data->getAnswer();
-        $this->url              = $data->getUrl();
-        $this->date             = $data->getDate();
-        $this->addTagsString    = $data->getTagString();
-        $this->addTagsArray     = $data->getTagArr();
-    }
-
-/**
- * подготавливает массив с избыточнм количеством даных для вывода
- */
-    public function getAll(): array
-    {
-        $data = [];
-        if ($this->stop != true) {
-            $data['id'] = $this->id;
-            $data['question'] = $this->question;
-            $data['answer'] = $this->answer;
-            $data['url'] = $this->url;
-            $data['date'] = $this->date;
-            $data['tags'] = $this->addTagsString;
-            return $data;
-        } else {
-            $data['stop'] = $this->stop;
-            $data['error'] = $this->error;
-            return $data;
-        }
-       
+        $this->question     = $data->getQuestion();
+        $this->answer       = $data->getAnswer();
+        $this->url          = $data->getUrl();
+        $this->date         = $data->getDate();
+        $this->tagsString   = $data->getTagString();
+        $this->tagsArray    = $data->getTagArr();
     }
 
 
-//  Set
-
-    /** Установка id добалвенной пары вопрос+ответ в БД
+    /**
+     * Установка id добалвенной пары вопрос+ответ в БД
      * @param int $arr
+     * @return $this
      */
-    public function setId(int $arr): void
+    public function setId(int $arr): self
     {
         $this->id = $arr;
+        return $this;
     }
 
     /**
      * Сохранение массива тегов с их id из ЬД
      * @param array $tags
+     * @return $this
      */
-    public function setTagsWithId(array $tags): void
+    public function setTagsWithId(array $tags): self
     {
         $this->tagsWithIdArray = $tags;
+        return $this;
     }
 
     /**
-     *
+     * @return $this
      */
-    public function setResultEmpty(): void
+    public function setResultEmpty(): self
     {
         $this->stop = true;
-        $this->error = "Нет данных по тегам: $this->addTagsString";
+        $this->error = "Нет данных по тегам: $this->tagsString";
+        return $this;
     }
 
 
-//  Get
+
+    /**
+     * @return bool
+     */
+    public function isStop(): bool
+    {
+        return $this->stop;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getError(): ?string
+    {
+        return $this->error;
+    }
 
     /**
      * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -100,7 +97,7 @@ class PutterModel
     /**
      * @return string
      */
-    public function getQuestion()
+    public function getQuestion(): string
     {
         return $this->question;
     }
@@ -130,12 +127,20 @@ class PutterModel
     }
 
     /**
+     * @return string|null
+     */
+    public function getTagsString(): ?string
+    {
+        return $this->tagsString;
+    }
+
+    /**
      * Выдача первоначального списка тегов
      * @return array
      */
     public function getTagsToSearch(): array
     {
-        return $this->addTagsArray;
+        return $this->tagsArray;
     }
 
     /**
