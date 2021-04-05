@@ -13,22 +13,23 @@ class GetInfo
 {
     public static function getInfo(GetterModel $data): void
     {
-        print_r($data)
+        $collection = $data->getCollection();
+
         ?><div class="center">
-            <div class="divToSite"><span id='boldText'>Результаты поиска по тегам: <?=$data['tagsString']?></span>
+            <div class="divToSite"><span id='boldText'>Результаты поиска по тегам: <?=$data->getTagsString()?></span>
             <?php
-            foreach ($data['mainResult'] as $one) {
+            foreach ($collection as $item) {
                 ?><div class ='result'>
                     <div class ='resultQuestion'>
-                        <span id='boldText'><?=nl2br($one['question'])?></span><br />
+                        <span id='boldText'><?=nl2br($item->getQuestion())?></span><br />
                     </div>
                     <div class ='resultBody'>
-                        <span id=''><?=nl2br($one['answer'])?></span><br />
-                        <?php if (!empty($one['url'])){ ?><span id=''><a href="<?=$one['url']?>"><?=$one['url']?></span></a><br /><?php } ?>
-                        <?php if (!empty($one['date'])){ ?><span id=''><?=$one['date']?></span><br /><?php } ?>
+                        <span id=''><?=nl2br($item->getAnswer())?></span><br />
+                        <?php if (!empty($item->getUrl())){ ?><span id=''><a href="<?=$item->getUrl()?>"><?=$item->getUrl()?></span></a><br /><?php } ?>
+                        <?php if (!empty($item->getDate())){ ?><span id=''><?=$item->getDate()?></span><br /><?php } ?>
                     </div>
                     <div class ='resultUnderInfo'>
-                        <span id='italicText'>ID: <?=$one['idMain']?>, Теги: <?=$one['tag']?></span><br />
+                        <span id='italicText'>ID: <?=$item->getIdMain()?>, Теги: <?=$item->getTagString()?></span><br />
                     </div>
                 </div><?php
             }

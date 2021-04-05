@@ -82,6 +82,7 @@ class Getter
      */
     private function addTegToResult(array $data): void
     {
+        $collection = [];
         foreach ($data as $key => $one) {
             $tags = [];
             $query = "SELECT tegs.teg FROM main 
@@ -94,10 +95,18 @@ class Getter
             while ($row = $stmt->fetch(\PDO::FETCH_LAZY)) {
                 $tags[] = $row['teg'];
             }
-            $data[$key]['tag'] = implode(' ', $tags);
-        }
 
-        $this->getterModel->setResultArr($data);
+            $getterResponseEntity = new GetterResponseEntity();
+            $getterResponseEntity
+                ->setTagString(implode(' ', $tags))
+                ->setIdMain($one['idMain'])
+                ->setQuestion($one['question'])
+                ->setAnswer($one['answer'])
+                ->setUrl($one['url'])
+                ->setDate($one['date']);
+            $collection[] = $getterResponseEntity;
+        }
+        $this->getterModel->setCollection($collection);
     }
 }
 

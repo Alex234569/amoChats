@@ -14,15 +14,18 @@ class GetterModel
     private bool $stop = false;
     private ?string $error = NULL;
     
-    private ?string $getTagsString;
+    private ?string $tagsString;
     private ?array $getTagsArray;
-    private array $resultingArr;
+    private array $collection;
 
 
-
+    /**
+     * GetterModel constructor.
+     * @param ValidateModel $data
+     */
     public function __construct(ValidateModel $data)
     {
-        $this->getTagsString = $data->getTagString();
+        $this->tagsString = $data->getTagString();
         $this->getTagsArray  = $data->getTagArr();
     }
 
@@ -42,43 +45,16 @@ class GetterModel
         return $this->error;
     }
 
-    /**
-     * @return array
-     */
-    public function getResultingArr(): array
-    {
-        return $this->resultingArr;
-    }
-
-    /**
-     * Возвращает данные на отображение
-     * @return array
-     */
-/*    public function getResult(): array
-    {
-        $data = [];
-        if ($this->stop != true) {
-            $data['tagsString'] = $this->getTagsString;
-            $data['mainResult'] = $this->resultingArr;
-            return $data;
-        } else {
-            $data['stop'] = $this->stop;
-            $data['error'] = $this->error;
-            return $data;
-        }
-    }
-*/
 
 //  Set
 
     /**
-     * Устанавливает массив данных для отображения
-     * @param array $data
+     * @param array $collection
      * @return $this
      */
-    public function setResultArr(array $data): self
+    public function setCollection(array $collection): self
     {
-        $this->resultingArr = $data;
+        $this->collection = $collection;
         return $this;
     }
 
@@ -89,11 +65,19 @@ class GetterModel
     public function setResultEmpty(): self
     {
         $this->stop = true;
-        $this->error = "Нет данных по тегам: $this->getTagsString";
+        $this->error = "Нет данных по тегам: $this->tagsString";
         return $this;
     }
     
 //  Get
+
+    /**
+     * @return array
+     */
+    public function getCollection(): array
+    {
+        return $this->collection;
+    }
 
     /**
      * Выдает массив тегов для поиска
@@ -102,5 +86,13 @@ class GetterModel
     public function getTagsToSearchArr(): array
     {
         return $this->getTagsArray;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTagsString(): ?string
+    {
+        return $this->tagsString;
     }
 }
