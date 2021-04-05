@@ -1,0 +1,12 @@
+.main{
+    height: 800px;
+    width: 800px;
+    border: black 2px solid;
+    margin: auto;
+    display: flex;
+}
+.little{
+    height: 196px;
+    width: 196px;
+    border: pink 2px solid;
+}
