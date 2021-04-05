@@ -18,7 +18,7 @@ class ValidateController
      */
     public function main(array $data): ValidateModel
     {
-        return $this->putInfo($data);
+     return $this->putInfo($data);
     }
 
     /**

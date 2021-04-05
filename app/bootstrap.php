@@ -10,10 +10,10 @@ require_once DIR . "/app/views/Template.php";  // подключение осв�
 
 Route::buildRoute($_GET);
 
-
-//    echo "<pre>";
-//    echo "<div class='center'>";
-
+/*
+    echo "<pre>";
+    echo "<div class='center'>";
+*/
 
 $controller = new Controller();
 $controller->start();

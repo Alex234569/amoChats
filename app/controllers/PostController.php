@@ -12,17 +12,17 @@ use app\views\GetInfo;
 use app\views\PutInfo;
 
 /**
- * Главный контроллер
+ * Основной класс для _POST запроов
  * Class Controller
  * @package app\controllers
  */
-class MainController
+class PostController
 {
     /**
-     * На данный момент это главная функция, вызываемся при заполнении форм
+     * Главная функция при наличии PostController-a
      * @param ValidateModel $data
      */
-    public function mainController(ValidateModel $data): void
+    public function main(ValidateModel $data): void
     {
         $button = $data->getButton();
         switch ($button) {
@@ -41,10 +41,6 @@ class MainController
                 } else {
                     PutInfo::putInfo($putInfoRes);
                 }
-
-
-
-               // isset($putInfoRes['stop']) ? Error::error($putInfoRes['error']) : PutInfo::putInfo($putInfoRes);
         }
     }
 

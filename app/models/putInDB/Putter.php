@@ -156,6 +156,5 @@ class Putter
         foreach ($tagId as $tag) {
             $stmt->execute(array($idMain, $tag['idTag']));
         }
-
     }
 } 

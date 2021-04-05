@@ -2,7 +2,8 @@
 
 namespace app\core;
 
-use app\controllers\MainController;
+use app\controllers\PostController;
+use app\controllers\GetController;
 use app\controllers\ValidateController;
 use app\views\Error;
 
@@ -14,7 +15,8 @@ use app\views\Error;
 class Controller
 {
     private ValidateController $validateController;
-    private MainController $mainController;
+    private PostController $postController;
+    private GetController $getController;
 
     /**
      * Controller constructor.
@@ -22,7 +24,8 @@ class Controller
     public function __construct()
     {
         $this->validateController = new ValidateController();
-        $this->mainController = new MainController();
+        $this->postController = new PostController();
+        $this->getController = new GetController();
     }
 
     /**
@@ -30,12 +33,16 @@ class Controller
      */
     public function start(): void
     {
+        if (!empty($_GET) && $_GET['page'] === 'Jira'){
+            $this->getController->main($_GET);
+        }
+
         if (!empty($_POST)){
             $dataAfterValidate = $this->validateController->main($_POST);
             if ($dataAfterValidate->isStop() === true) {
                 Error::error($dataAfterValidate->getError());
             } else {
-                $this->mainController->mainController($dataAfterValidate);
+                $this->postController->main($dataAfterValidate);
             }
         }
     }

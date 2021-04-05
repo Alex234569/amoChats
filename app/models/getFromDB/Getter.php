@@ -12,14 +12,13 @@ use app\models\validate\ValidateModel;
 class Getter
 {
     private GetterModel $getterModel;
-    private DataBaseChats $dataBaseChats;
     private \PDO $pdo;
 
     public function __construct(ValidateModel $data)
     {
         $this->getterModel = new GetterModel($data);
-        $this->dataBaseChats = new DataBaseChats();
-        $this->pdo = $this->dataBaseChats->getPdo();
+        $dataBaseChats = new DataBaseChats();
+        $this->pdo = $dataBaseChats->getPdo();
     }
 
 

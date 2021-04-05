@@ -1,7 +1,7 @@
 <?php
 namespace app\core;
 
-use app\controllers\MainController;
+use app\controllers\PostController;
 
 /**
  * Class Route, отвечает за подключение страниц
@@ -18,11 +18,7 @@ class Route
         if (!empty($get)) {
             switch ($get['page']) {
                 case 'Jira':
-                    $controller = new MainController();
-                    $data['tagArr'] = [0 => '-/'];
-                    $data['tagString'] = '-/';
-                    $data['button'] = 'getInfo';
-                    $controller->mainController($data);
+
                     break;
                 case 'ErrorCode':
                     require_once DIR . '/app/views/ErrorCode.php';
