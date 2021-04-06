@@ -41,7 +41,28 @@
             </div>
         </div>
     -->
+<!-- Элементы для вызова модальных окон, могут быть любые -->
 
+<a href="#" class="js-open-modal" data-modal="1">Открыть окно 1</a>
+<a href="#" class="js-open-modal" data-modal="2">Открыть окно 2</a>
+<a href="#" class="js-open-modal" data-modal="3">Открыть окно 3</a>
+
+<!-- Несколько модальных окон -->
+
+    <div class="modal" data-modal="1">
+    <p class="modal__title">Заголовок окна 1</p>
+    </div>
+
+    <div class="modal" data-modal="2">
+        <p class="modal__title">Заголовок окна 2</p>
+    </div>
+
+    <div class="modal" data-modal="3">
+        <p class="modal__title">Заголовок окна 3</p>
+    </div>
+
+    <!-- Подложка под модальным окном -->
+    <div class="overlay js-overlay-modal"></div>
 
 
 
