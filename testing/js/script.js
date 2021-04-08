@@ -29,8 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
    /* Записываем в переменные массив элементов-кнопок и подложку.
       Подложке зададим id, чтобы не влиять на другие элементы с классом overlay*/
    var modalButtons = document.querySelectorAll('.js-open-modal'),
-       overlay      = document.querySelector('.js-overlay-modal'),
-       closeButtons = document.querySelectorAll('.js-modal-close');
+       overlay      = document.querySelector('.js-overlay-modal');
+
+   // кнопку зарытия порезал
+     //  closeButtons = document.querySelectorAll('.js-modal-close');
 
 
    /* Перебираем массив кнопок */
@@ -59,6 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
    }); // end foreach
 
 
+    // тут была кнопка для закрытия, которую я порезал
+/*
    closeButtons.forEach(function(item){
 
       item.addEventListener('click', function(e) {
@@ -70,7 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
    }); // end foreach
 
-
+*/
+    // + закрытие модального окна при тыке вне него
     document.body.addEventListener('keyup', function (e) {
         var key = e.keyCode;
 

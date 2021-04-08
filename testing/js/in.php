@@ -13,35 +13,9 @@
     <div class="right">
 -->
 <div class="main">
-    <div class="little">Текст1</div>
-    <div class="little">Текст2</div>
 
 
-    <!--
-        <div class="little">
-            Текст3
-            <a href="javascript:PopUpShow(1)">Show popup1</a>
-        </div>
-        <div class="popup" id="popup1">
-            <div class="popup-content">
-                Text in Popup1
-                <a href="javascript:PopUpHide(1)">Hide popup1</a>
-            </div>
-        </div>
 
-
-        <div class="little">
-            Sample Text
-            <a href="javascript:PopUpShow(2)">Show popup2</a>
-        </div>
-        <div class="popup" id="popup2">
-            <div class="popup-content">
-                Text in Popup2
-                <a href="javascript:PopUpHide(2)">Hide popup2</a>
-            </div>
-        </div>
-    -->
-<!-- Элементы для вызова модальных окон, могут быть любые -->
 
 <a href="#" class="js-open-modal" data-modal="1">Открыть окно 1</a>
 <a href="#" class="js-open-modal" data-modal="2">Открыть окно 2</a>
@@ -50,6 +24,12 @@
 <!-- Несколько модальных окон -->
 
     <div class="modal" data-modal="1">
+        <!--
+            Кнопка закрятия, порезана
+        <svg class="modal__cross js-modal-close" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 24 24">
+            <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"/></svg>
+        -->
     <p class="modal__title">Заголовок окна 1</p>
     </div>
 
@@ -58,7 +38,14 @@
     </div>
 
     <div class="modal" data-modal="3">
-        <p class="modal__title">Заголовок окна 3</p>
+        <p class="modal__title">
+            Заголовок окна 3
+
+            <form action='' id='addInfo' method = 'POST'></form>
+            <label for='textareaGetInfo'></label><textarea rows='1' required form='addInfo' name='info'></textarea><br />
+            <input type='submit' value='addInfoInModal' form='addInfo' name='button'>
+
+        </p>
     </div>
 
     <!-- Подложка под модальным окном -->
@@ -70,3 +57,8 @@
     </div>
     </body>
     </html>
+
+
+<?php
+
+print_r($_POST);
