@@ -51,11 +51,10 @@
     visibility: hidden;
 
     /* Установаем ширину окна  */
-    width: 100%;
-    max-width: 700px;
+    width: 700px;
 
     /* Установкю высоту */
-    height: 600px;
+    height: 700px;
 
     /* добавлю возможность скорлла в модальном окне*/
     overflow-y: auto;
@@ -70,7 +69,8 @@
     /*  Побочные стили   */
     box-shadow: 0 3px 10px -.5px rgba(0, 0, 0, .2);
     text-align: center;
-    padding: 30px;
+    padding-left: 100px;
+    padding-right: 100px;
     border-radius: 3px;
     background-color: #fff;
     transition: 0.3s all;
@@ -137,10 +137,26 @@
 
 #formInCenter{
     position: relative;
-    margin-top: 100px;
+    margin-top: 150px;
+    width: 100%;
 }
 
 #formInBottom{
-    position: relative;
-    margin-top: 100px;
+    margin-top: 150px;
+    width: 100%;
 }
+
+#radio{
+    margin-left: 50px;
+    text-align: left;
+    width: 150px;
+    float: left;
+}
+#submitRadio{
+
+    margin-right: 50px;
+    width: 100px;
+    float: right;
+}
+
+

@@ -111,7 +111,6 @@ class Putter
         $query = "SELECT main.id_main, main.question, main.answer, main.url, main.date FROM main WHERE question = ? AND answer = ?";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(array($question, $answer));
-        $stmt->fetch();
         $row = $stmt->fetch(\PDO::FETCH_LAZY);
 
         if ($row == false) {                                                                  //  если пары нет, то $response пустой

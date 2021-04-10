@@ -18,7 +18,7 @@ class ValidateController
      */
     public function main(array $data): ValidateModel
     {
-     return $this->putInfo($data);
+        return $this->mainInfo($data);
     }
 
     /**
@@ -26,15 +26,15 @@ class ValidateController
      * @param array $data
      * @return ValidateModel
      */
-    private function putInfo(array $data): ValidateModel
+    private function mainInfo(array $data): ValidateModel
     {
         $validate = new ValidateModel($data['button']);
         $validate
             ->setTag($data['tag'])
-            ->setQuestion(isset ($data['question']) ? $data['question'] : NULL)
-            ->setAnswer(isset ($data['answer']) ? $data['answer'] : NULL)
-            ->setUrl(isset ($data['url']) ? $data['url'] : NULL)
-            ->setDate(isset ($data['date']) ? $data['date'] : NULL);
+            ->setQuestion($data['question'] ?? NULL)
+            ->setAnswer($data['answer'] ?? NULL)
+            ->setUrl($data['url'] ?? NULL)
+            ->setDate($data['date'] ?? NULL);
         return $validate;
     }
 }

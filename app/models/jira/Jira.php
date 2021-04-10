@@ -4,9 +4,14 @@ namespace app\models\jira;
 
 use app\models\lib\DataBaseChats;
 
+/**
+ * Class Jira для вывода информации о тикетах в жире
+ * @package app\models\jira
+ */
 class Jira
 {
     private \PDO $pdo;
+
 
     public function __construct()
     {

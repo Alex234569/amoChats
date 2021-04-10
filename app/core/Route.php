@@ -17,8 +17,8 @@ class Route
     {
         if (!empty($get)) {
             switch ($get['page']) {
+                case 'Issues':
                 case 'Jira':
-
                     break;
                 case 'ErrorCode':
                     require_once DIR . '/app/views/ErrorCode.php';

@@ -12,14 +12,14 @@ use app\views\GetInfo;
 use app\views\PutInfo;
 
 /**
- * Основной класс для _POST запроов
+ * Основной класс для _POST запроов для связи с БД
  * Class Controller
  * @package app\controllers
  */
 class PostController
 {
     /**
-     * Главная функция при наличии PostController-a
+     * Главная функция PostController-a
      * @param ValidateModel $data
      */
     public function main(ValidateModel $data): void

@@ -2,9 +2,10 @@
 
 namespace app\core;
 
+use app\controllers\ValidateController;
 use app\controllers\PostController;
 use app\controllers\GetController;
-use app\controllers\ValidateController;
+use app\controllers\IssueController;
 use app\views\Error;
 
 /**
@@ -17,6 +18,7 @@ class Controller
     private ValidateController $validateController;
     private PostController $postController;
     private GetController $getController;
+    private IssueController $issueController;
 
     /**
      * Controller constructor.
@@ -26,6 +28,7 @@ class Controller
         $this->validateController = new ValidateController();
         $this->postController = new PostController();
         $this->getController = new GetController();
+        $this->issueController = new IssueController();
     }
 
     /**
@@ -37,7 +40,11 @@ class Controller
             $this->getController->main($_GET);
         }
 
-        if (!empty($_POST)){
+        if (!empty($_GET) && $_GET['page'] === 'Issues'){
+            $this->issueController->main();
+        }
+
+        if (isset($_POST['button'])){
             $dataAfterValidate = $this->validateController->main($_POST);
             if ($dataAfterValidate->isStop() === true) {
                 Error::error($dataAfterValidate->getError());

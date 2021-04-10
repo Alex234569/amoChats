@@ -27,18 +27,32 @@
 
         </div>
 
+        <!--  Объявление кнопки для вызова модального окна  -->
         <a href="" class="js-open-modal" id="buttonIssue" data-modal="1">Открыть окно 1</a>
+        <!--  Внутренности модального окна  -->
         <div class="modal" data-modal="1">
             <p>Заголовок окна 1</p>
 
-
+            <!--  Блок с формой  -->
             <div id="formInBottom">
+                <!--  Объяслвение формы  -->
                 <form action='' id='addInfo' method = 'POST'></form>
                 <textarea id='width600pxHeight150px' placeholder='Добавление информации, до 10`000 символов' required form='addInfo' name='info'></textarea><br />
-                <input type='submit' id='bigButton' value='Тыколка' form='addInfo' name='button'>
-            </div>
 
+                <!--  Добавление радио для выбора от кого сообщение  -->
+                <div id="radio">
+                    <p><input name="radioIssue" type="radio" value="Me" form='addInfo'>Я</p>
+                    <p><input name="radioIssue" type="radio" value="Int" checked form='addInfo'>Интегратор</p>
+                </div>
+                <!--  Кнопка  -->
+                <div id="submitRadio">
+                    <input type='submit' id='bigButton' value='Тыколка' form='addInfo' name='button'>
+                </div>
+            </div>
         </div>
+
+
+
 
         <a href="" class="js-open-modal" id="buttonIssue" data-modal="2">Открыть окно 2</a>
         <div class="modal" data-modal="2">
@@ -58,7 +72,6 @@
         <a href="#" class="js-open-modal" id="buttonIssue" data-modal="7">Открыть окно 7</a>
         <a href="#" class="js-open-modal" id="buttonIssue" data-modal="8">Открыть окно 8</a>
     </div>
-
 
 
     <!--
