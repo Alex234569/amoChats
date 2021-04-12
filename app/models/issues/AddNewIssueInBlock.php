@@ -4,11 +4,15 @@ namespace app\models\issues;
 
 use app\models\lib\DataBaseChats;
 
+/**
+ * Class AddNewIssueInBlock для добавления ТОЛЬКО нового обращения
+ * @package app\models\issues
+ */
 class AddNewIssueInBlock
 {
     private string $block;
     private string $caption;
-    private string $information;
+    private string $text;
     private ?int $issueId;
 
     private bool $stop = false;
@@ -16,19 +20,22 @@ class AddNewIssueInBlock
 
     private \PDO $pdo;
 
-    public function __construct(string $block, string $caption, string $information)
+    public function __construct(string $block, string $caption, string $text)
     {
         $this->block = $block;
         $this->caption = trim($caption);
-        $this->information = trim($information);
+        $this->text = trim($text);
         $dataBaseChats = new DataBaseChats();
         $this->pdo = $dataBaseChats->getPdo();
     }
 
+
+    /**
+     * Добавляем новое обращение
+     */
     public function main()
     {
         $this->check($this->caption);
-
     /*    } else {
             $this->stop = true;
             $this->error = 'Уже есть обращение с таким названием';
@@ -38,7 +45,11 @@ class AddNewIssueInBlock
     }
 
 
-
+    /**
+     * Проверка обращение на предмет его уже наличия
+     * @param string $caption
+     * @param null $stopper
+     */
     private function check(string $caption, $stopper = NULL): void
     {
         $query = "SELECT * FROM issues WHERE caption = (?)";
@@ -53,15 +64,23 @@ class AddNewIssueInBlock
         }
     }
 
+    /**
+     * Добавление нового обращения
+     * @param string $caption
+     */
     public function addNewIssue(string $caption)
     {
-        $query = 'INSERT INTO issues (caption, `from`, date, message) VALUES (?, ?, ?, ?)';
+        $query = 'INSERT INTO issues (caption) VALUES (?)';
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute(array($caption, 0, date('d-m-Y'), $this->information));
+        $stmt->execute(array($caption));
 
         $this->check($caption, 'added');                             //  рекурсив
     }
 
+    /**
+     * Связываение обращения с блоком
+     * @param int $issueId
+     */
     private function compoundAdjuster(int $issueId): void
     {
         // для начала узнаем id блкоа
