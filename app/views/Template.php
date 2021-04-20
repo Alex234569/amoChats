@@ -10,11 +10,11 @@
 <body>
 
     <div class="leftColumn">
-        <div class="link"><a href="index.php">Main</a></div>
-        <div class="link"><a href="index.php?page=Jira">Jira</a></div>
-        <div class="link"><a href="index.php?page=Issues">Issues</a></div>
-        <div class="link"><a href="index.php?page=ErrorCode">Errors</a></div>
-        <div class="link"><a href="index.php?page=Pattern">Шаблоны</a></div>
+        <a href="index.php" id="templateButton">Main</a><br />
+        <a href="index.php?page=Jira" id="templateButton">Jira</a><br />
+        <a href="index.php?page=Issues" id="templateButton">Issues</a><br />
+        <a href="index.php?page=ErrorCode" id="templateButton">Errors</a><br />
+        <a href="index.php?page=Pattern" id="templateButton">Шаблоны</a><br />
     </div>
 
     <div class="rightColumn">

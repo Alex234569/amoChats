@@ -58,10 +58,32 @@
         </div>
     </div>
     <div class="errorCodeBlock">
+        <div class="littleHeader">КОГДА???</div><br />
+            К сожалению, не можем сориентировать вас по срокам
+        <div class="littleResult">
+
+        </div>
+    </div>
+    <div class="errorCodeBlock">
         <div class="littleHeader"></div><br />
         <div class="littleResult">
 
         </div>
+    </div>
+    </div>
+    <div class="errorCodeBlock">
+        <div class="littleHeader"></div><br />
+        <div class="littleResult">
+
+        </div>
+    </div>
+    </div>
+    <div class="errorCodeBlock">
+        <div class="littleHeader"></div><br />
+        <div class="littleResult">
+
+        </div>
+    </div>
     </div>
     <div class="errorCodeBlock">
         <div class="littleHeader"></div><br />
