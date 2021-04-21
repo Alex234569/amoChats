@@ -16,7 +16,9 @@ class BlocksAndIssues
 
             <!--  Добавление модального окна для добавления блоков  -->
             <div class="allButton">
-                <a href="" class="js-open-modal" id="buttonIssue" data-modal="newBlock">Добавить новый блок</a>
+                <a href="" class="js-open-modal" id="buttonNewBlock" data-modal="newBlock">
+                    <img src="../../images/whitePlus-blackCircle.svg"  width="100%" height="100%">
+                </a>
 
                 <!--  Внутренности окна  -->
                 <div class="modal" data-modal="newBlock">
@@ -33,7 +35,7 @@ class BlocksAndIssues
             <div id="">   <?php
                 foreach ($collection as $item) {
                     ?>
-                        <a href="index.php?page=Issues&block=<?=$item->getBlockName()?>" id="blockButton"><?=$item->getBlockName()?></a>
+                        <a href="index.php?page=Issues&block=<?=$item->getBlockName()?>" id="allBlocks"><?=$item->getBlockName()?></a>
                     <?php
                 }   ?>
             </div>
@@ -47,9 +49,19 @@ class BlocksAndIssues
             <div class="center">
                 <!--  Для закрытия модального окна  -->
                 <div class="overlay js-overlay-modal"></div>
-                <!--  Добалвение модального окна для добавления обращений  -->
+
+
+                <!--  Пошла, Плотва!  -->
                 <div class="allButton">
-                    <a href="" class="js-open-modal" id="buttonIssue" data-modal="newIssue">Добавить новое обращение</a>
+                    <!--  Возврат на предыдущую страницу (удобно же ж)  -->
+                    <a href="index.php?page=Issues" id="buttonNewIssue">
+                        <img src="../../images/left-arrow.svg"  width="100%" height="100%">
+                    </a>
+
+                    <!--  Модальное окно для добавления обращений  -->
+                    <a href="" class="js-open-modal" id="buttonNewIssue" data-modal="newIssue">
+                        <img src="../../images/blackPlus-whiteCircle.svg"  width="100%" height="100%">
+                    </a>
                     <!--  Внутренности окна для обращений  -->
                     <div class="modal" data-modal="newIssue">
                         <div id="formInCenter">
@@ -76,6 +88,18 @@ class BlocksAndIssues
                             foreach ($item->getMessageModel() as $oneMessage) {
 
                                 $from = $oneMessage->getFrom() === 0 ? 'интегратора' : 'меня';
+
+                                if ($from === 'интегратора') {
+
+
+
+
+
+                                } else {
+
+
+
+                                }
                                 ?>
                                 <div id='message'>
                                     <p><?=nl2br($oneMessage->getText())?></p>

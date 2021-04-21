@@ -1,13 +1,4 @@
-/*
-.main{
-    border: solid 2px black;
-    display: flex;
-    margin: auto;
-    margin-top: 50px;
-    width: 75%;
-
-}   */
-
+/* 3 основных блока каждой страницы */
 .leftColumn {
     opacity: 0.8;
     width: 13%;
@@ -16,7 +7,6 @@
     position: fixed;
     left: 10px;
 }
-
 .rightColumn{
     opacity: 0.8;
     width: 13%;
@@ -25,7 +15,6 @@
     position: fixed;
     right: 10px;
 }
-
 .center{
     width: auto;
     height: auto;
@@ -33,32 +22,7 @@
     margin-right: calc(13% + 35px);
 }
 
-
-
-.centerGetInfo{
-    background: pink;
-}
-.centerAddInfo{
-    background: gold;
-}
-.centerAnswer{
-    background: whitesmoke;
-    border-top: solid 1px black;
-}
-/*
-.link {
-    width: 100%;
-    height: 40px;
-    background: lawngreen;
-    border-bottom: solid 2px grey;
-}
-.link a {
-    display: block;
-    text-align: center;
-    vertical-align: middle;
-    height: 100%;
-}
- */
+/* Кнопки на левой колонке */
 #templateButton{
     width: 90%;
     height: 50px;
@@ -68,13 +32,39 @@
     text-align: center;
 }
 
-.divToSite{
-    margin-top: 30px;
+/* основные параметры */
+h2{
+    text-align: center;
 }
+#boldText{
+    font-weight: bold;
+}
+#underlinedText{
+    text-decoration: underline;
+}
+#italicText{
+    /*  font-style: italic;*/
+    opacity: 0.7;
+}
+
+/* формы для получения и добавления инфы */
+.centerGetInfo{
+    background: pink;
+}
+.centerAddInfo{
+    background: gold;
+}
+
+/* вывод ошибки */
 .errorToSite{
     margin-top: 30px;
     padding: 20px;
     background-color: orangered;
+}
+
+/* отображение информации при поиске */
+.divToSite{
+    margin-top: 30px;
 }
 .result{
     background: lightblue;
@@ -96,9 +86,8 @@
     background: whitesmoke;
     padding-top: 5px;
 }
-h2{
-    text-align: center;
-}
+
+/* Настройка форм добавления и получения инфы */
 #textareaGetInfo{
     width: calc(100% - 6px);
     height: 18px;
@@ -112,7 +101,7 @@ h2{
     width: calc(100% - 6px);
     height: 50px;
 }
-#textareaAddInfoTegs{
+#textareaAddInfoTags{
     width: calc(100% - 6px);
     height: 18px;
 }
@@ -120,19 +109,8 @@ h2{
     width: calc(100% - 6px);
     height: 18px;
 }
-#boldText{
-    font-weight: bold;
-}
-#underlinedText{
-    text-decoration: underline;
-}
-#italicText{
-  /*  font-style: italic;*/
-    opacity: 0.7;
-}
 
-
-/* блоки вывода для Jira*/
+/* блоки вывода для страницы Jira*/
 .errorCodeBlock{
     margin-left: 10px;
     margin-top: 30px;
@@ -146,14 +124,11 @@ h2{
 
 
 
-
-
-/*  Для работы страницы issues  */
+            /*  Для работы страницы issues  */
 
 /* Стили для подложки */
 
 .overlay {
-
     /* Скрываем подложку  */
     opacity: 0;
     visibility: hidden;
@@ -169,7 +144,7 @@ h2{
 }
 
 
-/* Стили для модальных окон */
+/* Стиль для модальных окон */
 
 .modal {
     /* Скрываю модальные окна  */
@@ -210,21 +185,58 @@ h2{
 }
 
 
-/* Стили для кнопки закрытия, которую порезал */
+        /*  теперь по функицоналу на странице  */
 
-.modal__cross {
-    width: 15px;
-    height: 15px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    fill: #444;
-    cursor: pointer;
+/* а нужно ли? */
+.allButton{
+    text-align: center;
+}
+
+/* кнопка добавления нового блока */
+#buttonNewBlock{
+    padding: 20px;
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 3px;
+    margin: 10px;
+    height: 150px;
+    width: 150px;
+    position: relative;
+    float: left;
+}
+
+/* Показ всех блоков  */
+#allBlocks{
+    text-align: center;
+    background-color: #414b52;
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 3px;
+    margin: 10px;
+    height: 150px;
+    width: 150px;
+    padding: 20px;
+    float: left;
 }
 
 
+/* добавление нового обращения */
+#buttonNewIssue{
+    padding: 20px;
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 3px;
+    margin: 10px;
+    height: 150px;
+    width: 150px;
+    position: relative;
+    float: left;
+}
 
-
+/* это кнопки для обращений */
 #buttonIssue{
     background-color: #414b52;
     padding: 20px;
@@ -239,9 +251,7 @@ h2{
     float: left;
 }
 
-.allButton{
-    text-align: center;
-}
+
 
 #width600pxHeight50px{
     width: 600px;
@@ -259,6 +269,7 @@ h2{
     height: 40px;
 }
 
+/* отображение формы в центре */
 #formInCenter{
     position: relative;
     margin-top: 150px;
@@ -283,33 +294,6 @@ h2{
     float: right;
 }
 
-
-/* Показ всех блоков  */
-#blockName{
-    background-color: #414b52;
-    padding: 20px;
-    display: inline-block;
-    text-decoration: none;
-    color: #fff;
-    border-radius: 3px;
-    margin: 10px;
-    height: 150px;
-    width: 150px;
-    float: left;
-}
-#blockButton{
-    text-align: center;
-    background-color: #414b52;
-    display: inline-block;
-    text-decoration: none;
-    color: #fff;
-    border-radius: 3px;
-    margin: 10px;
-    height: 150px;
-    width: 150px;
-    padding: 20px;
-    float: left;
-}
 
 
 #message{
