@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'JBMono Thin';
+    src: url('../images/fonts/ttf/JetBrainsMono-Thin.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: "JBMono Thin";
+    font-size: 1em;
+}
+
+
 /* 3 основных блока каждой страницы */
 .leftColumn {
     opacity: 0.8;
@@ -213,7 +225,7 @@ h2{
     display: inline-block;
     text-decoration: none;
     color: #fff;
-    border-radius: 3px;
+    border-radius: 20px;
     margin: 10px;
     height: 150px;
     width: 150px;
@@ -226,9 +238,6 @@ h2{
 #buttonNewIssue{
     padding: 20px;
     display: inline-block;
-    text-decoration: none;
-    color: #fff;
-    border-radius: 3px;
     margin: 10px;
     height: 150px;
     width: 150px;
@@ -243,7 +252,7 @@ h2{
     display: inline-block;
     text-decoration: none;
     color: #fff;
-    border-radius: 3px;
+    border-radius: 40px;
     margin: 10px;
     height: 150px;
     width: 150px;
@@ -295,10 +304,11 @@ h2{
 }
 
 
-
 #message{
     text-align: left;
     margin-top: 30px;
 }
-
+#infoUnderMessage{
+    margin-top: -10px;
+}
 

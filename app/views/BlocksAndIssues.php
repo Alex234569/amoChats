@@ -26,7 +26,7 @@ class BlocksAndIssues
                         <p id='boldText'>Название блока</p>
                         <form action='' id='addNewBlock' method = 'POST'></form>
                         <textarea id='width600pxHeight50px' placeholder='Заголовок, не более 100 символов' maxlength = '100' required form='addNewBlock' name='newBlockName'></textarea><br />
-                        <input type='submit' id='bigButton' value='Добавить блок' form='addNewBlock' name='addNewBlock'>
+                        <input type='submit' id='bigButton' value='Добавить' form='addNewBlock' name='addNewBlock'>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@ class BlocksAndIssues
                             <form action='' id='fromAddNewIssue' method = 'POST'></form>
                             <textarea id='width600pxHeight50px' placeholder='Заголовок, не более 100 символов' maxlength = '100' required form='fromAddNewIssue' name='caption'></textarea><br />
                             <textarea id='width600pxHeight150px' placeholder='Информация, до 10`000 символов' maxlength = '10000'  form='fromAddNewIssue' name='text'></textarea><br />
-                            <input type='submit' id='bigButton' value='Добавить обращение' form='fromAddNewIssue' name='addNewIssue'>
+                            <input type='submit' id='bigButton' value='Добавить' form='fromAddNewIssue' name='addNewIssue'>
                         </div>
                     </div>
                     <?php
@@ -80,37 +80,29 @@ class BlocksAndIssues
                         <a href="" class="js-open-modal" id="buttonIssue" data-modal="<?=$issueCaption?>"><?=$issueCaption?></a>
                         <!--  Внутренности модального окна  -->
                         <div class="modal" data-modal="<?=$issueCaption?>">
-                            <p><?=$issueCaption?></p>
+                            <h3><?=$issueCaption?></h3>
 
 
                             <?php
                                 /*  Тут выводятся все сообщения, которые есть в данном обращении  */
                             foreach ($item->getMessageModel() as $oneMessage) {
-
                                 $from = $oneMessage->getFrom() === 0 ? 'интегратора' : 'меня';
-
-                                if ($from === 'интегратора') {
-
-
-
-
-
-                                } else {
-
-
-
-                                }
-                                ?>
-                                <div id='message'>
-                                    <p><?=nl2br($oneMessage->getText())?></p>
-                                    <div class ='resultUnderInfo'>
-                                        <span id='italicText'>От: <?=$from?>, Время: <?=$oneMessage->getDate()?></span><br />
+                                if ($from === 'интегратора') {  ?>
+                                    <div id='message' style="text-align: left">
+                                        <p><?=nl2br($oneMessage->getText())?></p>
+                                        <div id ='infoUnderMessage'>
+                                            <span id='italicText'>От: <?=$from?>, Время: <?=$oneMessage->getDate()?></span><br />
+                                        </div>
                                     </div>
-                                </div>
-                                <?php
-                            }
-                            ?>
-
+                                <?php  } else {  ?>
+                                    <div id='message'style="text-align: right">
+                                        <p><?=nl2br($oneMessage->getText())?></p>
+                                        <div id ='infoUnderMessage'>
+                                            <span id='italicText'>От: <?=$from?>, Время: <?=$oneMessage->getDate()?></span><br />
+                                        </div>
+                                    </div>
+                                <?php }
+                            }  ?>
 
                             <!--  Блок с формой, отображается внизу для добавления инфомрации  -->
                             <div id="formInBottom">
