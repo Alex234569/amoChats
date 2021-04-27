@@ -66,6 +66,7 @@ class IssueController
         $addNewBlock = new AddNewBlock($data);
         return $addNewBlock->main();
     }
+    // @TODO Нотификация, при добавлении блока, которое уже есть (сейчас просто произойдет слияние "втихую")
 
 
     /**
@@ -91,6 +92,7 @@ class IssueController
         $getAllIssuesInBlock->main();
         $this->addNewMessage($caption, $text, 'integrator', NULL);
     }
+    // @TODO Нотификация, при добавлении обращения, которое уже есть (сейчас просто произойдет слияние "втихую")
 
 
     /**

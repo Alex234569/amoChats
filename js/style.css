@@ -260,6 +260,14 @@ h2{
     float: left;
 }
 
+/* Разделение стилей для сообщений в обращениях */
+#messageFromIntegrator{
+    background-color: aqua;
+    text-align: left
+}
+#messageFromMe{
+    text-align: right
+}
 
 
 #width600pxHeight50px{
