@@ -82,10 +82,9 @@ class BlocksAndIssues
                     <!--  Внутренности модального окна  -->
                     <div class="modal" data-modal="<?=$issueCaption?>">
                         <?php if ($isClosed === 1) {
-                                ?><div style="background-color: lightgreen"><?
-                            }?>Обращение закрыто</div>
+                            ?><div style="background-color: lightgreen">Обращение закрыто</div><?php
+                        }?>
                         <h3><?=$issueCaption?></h3>
-
 
                         <?php
                             /*  Тут выводятся все сообщения, которые есть в данном обращении  */
@@ -135,11 +134,7 @@ class BlocksAndIssues
                     </div>
                     <?php
                 } ?>
-
             </div>
-
-
-
         </div>
     <?php
     }
