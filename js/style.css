@@ -261,12 +261,33 @@ h2{
 }
 
 /* Разделение стилей для сообщений в обращениях */
+
+#divToMessageFromIntegrator{
+    width: 70%;
+    float: left;
+    margin: 10px
+}
 #messageFromIntegrator{
-    background-color: aqua;
-    text-align: left
+    background-color: lightcyan;
+    text-align: left;
+    width: auto;
+    padding: 0 10px 5px 10px;
+    border: lightslategray dotted 1px;
+    border-radius: 10px
+}
+
+#divToMessageFromMe{
+    width: 70%;
+    float: right;
+    margin: 10px
 }
 #messageFromMe{
-    text-align: right
+    background-color: lightgoldenrodyellow;
+    text-align: right;
+    width: auto;
+    padding: 0 10px 5px 10px;
+    border: lightslategray dotted 1px;
+    border-radius: 10px
 }
 
 

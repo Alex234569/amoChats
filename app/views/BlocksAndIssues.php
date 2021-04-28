@@ -91,8 +91,8 @@ class BlocksAndIssues
                             $from = $oneMessage->getFrom() === 0 ? 'интегратора' : 'меня';
                             // разделение обращений на "от интегратора" и "от меня"
                             if ($from === 'интегратора') {  ?>
-                                <div style="width: 70%; float: left;  margin: 10px" >
-                                    <div id='messageFromIntegrator' style="text-align: left; width: auto; padding: 0 10px 5px 10px; border: lightslategray dotted 1px; border-radius: 10px">
+                                <div id="divToMessageFromIntegrator">
+                                    <div id='messageFromIntegrator'>
                                         <p><?=nl2br($oneMessage->getText())?></p>
                                         <div id ='infoUnderMessage'>
                                             <span id='italicText'>От: <?=$from?>, Время: <?=$oneMessage->getDate()?></span><br />
@@ -100,8 +100,8 @@ class BlocksAndIssues
                                     </div>
                                 </div>
                             <?php  } else {  ?>
-                                <div style="width: 70%; float: right;  margin: 10px">
-                                    <div id='messageFromMe' style="text-align: right; width: auto; padding: 0 10px 5px 10px; border: lightslategray dotted 1px; border-radius: 10px">
+                                <div id="divToMessageFromMe">
+                                    <div id='messageFromMe'>
                                         <p><?=nl2br($oneMessage->getText())?></p>
                                         <div id ='infoUnderMessage'>
                                             <span id='italicText'>От: <?=$from?>, Время: <?=$oneMessage->getDate()?></span><br />
